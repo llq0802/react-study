@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-09-02 12:03:56
- * @LastEditTime: 2021-09-10 17:34:31
+ * @LastEditTime: 2021-09-10 17:54:20
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-react\src\App.js
@@ -15,15 +15,28 @@ import About from './pages/About' //About是路由组件
 import Header from './components/Header' //Header是一般组件
 import MyNavLink from './components/MyNavLink'
 
+import { Button } from 'antd';
+
 export default class App extends Component {
 	render() {
 		return (
 			<div className="App">
 				{/* <Count />
 				<Person /> */}
+				<div>
+				<Button type="primary">Primary Button</Button>
+    <Button>Default Button</Button>
+    <Button type="dashed">Dashed Button</Button>
+    <Button type="text">Text Button</Button>
+    <Button type="link">Link Button</Button>
+				</div>
+			<br /> 
 				<div className="row">
+
 						<Header/>
 				</div>
+			<br /> 
+
 				<div className="list-group">
 
 							{/* 原生html中，靠<a>跳转不同的页面 */}
@@ -34,7 +47,9 @@ export default class App extends Component {
 							<MyNavLink to="/home">Home</MyNavLink>
 							<MyNavLink to="/count">Count</MyNavLink>
 							<MyNavLink to="/person">Person</MyNavLink>
+							
 				</div>
+				<br /> 
 
 				<div className="panel">
 
