@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-09-02 17:30:06
- * @LastEditTime: 2021-09-10 15:31:09
+ * @LastEditTime: 2021-09-16 15:18:19
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-react\setupProxy.js
@@ -23,6 +23,7 @@
 //          	changeOrigin默认值为false，但我们一般将changeOrigin值设为true
 //          */
 //          pathRewrite: {'^/api1': ''} //去除请求前缀，保证交给后台服务器的是正常请求地址(必须配置)
+//           secure:false https请求中要设置为ture
 //        }),
 //
 //      )
