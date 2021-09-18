@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-09-02 12:03:56
- * @LastEditTime: 2021-09-10 17:13:35
+ * @LastEditTime: 2021-09-18 11:46:48
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-react\src\index.js
@@ -22,6 +22,8 @@ import store from './redux/store';
 //   </React.StrictMode>,
 //   document.getElementById('root')
 // );
+
+console.log(process.env.NODE_ENV);
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>

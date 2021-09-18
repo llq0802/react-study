@@ -6,7 +6,7 @@
  * @Description: In User Settings Edit
  * @FilePath: \my-react\src\App.js
  */
-import React, { Component } from 'react'
+import React, { Component, lazy, Suspense } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import Home from './pages/Home' //Home是路由组件
 import Count from './pages/Count' //Count
@@ -35,12 +35,9 @@ export default class App extends Component {
 				<Switch>
 					{/* <Route path="/" exact component={About}/> */}
 					<Route path="/" component={About} exact />
-
 					<Route path="/home" component={Home} />
-
 					<Route path="/count" component={Count} />
 					<Route path="/person" component={Person} />
-
 					<Redirect exact from='/' to="/about" />
 				</Switch>
 			</>
