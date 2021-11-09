@@ -47,7 +47,7 @@ var {
   font-weight: normal;
 }
 a {
-  // text-decoration: none;
+  text-decoration: none;
 }
 
 img {
@@ -87,4 +87,15 @@ div {
 
 .App {
   padding: 20px;
+}
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  position: absolute;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #1c91fc;
+}
+::-webkit-scrollbar-track {
+  background-color: #ddd;
 }

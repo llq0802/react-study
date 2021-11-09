@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-09-02 12:03:56
- * @LastEditTime: 2021-09-18 11:46:48
+ * @LastEditTime: 2021-09-27 17:19:29
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-react\src\index.js
@@ -22,8 +22,7 @@ import store from './redux/store';
 //   </React.StrictMode>,
 //   document.getElementById('root')
 // );
-
-console.log(process.env.NODE_ENV);
+// process.env.url = 11;
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
@@ -33,6 +32,8 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+// console.log(process.env);
+// console.log(process.env.REACT_APP_BASEURL);
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

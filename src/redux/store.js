@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-09-10 16:41:22
- * @LastEditTime: 2021-09-10 16:45:44
+ * @LastEditTime: 2021-11-05 11:47:32
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-react\src\redux\store.js
@@ -16,6 +16,7 @@ import { createStore, applyMiddleware } from 'redux';
 
 //引入redux-thunk，用于支持异步action
 import thunk from 'redux-thunk';
+// import reduxPromise from 'redux-promise';
 //引入redux-devtools-extension
 // import {composeWithDevTools} from 'redux-devtools-extension'
 

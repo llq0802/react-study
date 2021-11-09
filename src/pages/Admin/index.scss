@@ -1,0 +1,22 @@
+$height-50: 50px;
+.admin {
+  min-height: 100%;
+  overflow: auto;
+  .site-layout .site-layout-background {
+    background: #fff;
+  }
+  .logo {
+    height: $height-50;
+    line-height: $height-50;
+    color: #fff;
+    text-align: center;
+    font-size: 20px;
+    margin: 10px;
+    background-color: #704c4c;
+    transition: all 0.2;
+  }
+  .trigger {
+    margin-left: 15px;
+    font-size: 25px;
+  }
+}
