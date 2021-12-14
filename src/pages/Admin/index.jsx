@@ -13,7 +13,7 @@ import { Transition } from 'react-transition-group';
 import './index.scss'
 
 
-const { Header, Sider, Content } = Layout;
+const { Header, Sider, Content, Footer } = Layout;
 const menu = (
 	<Menu>
 		<Menu.Item>
@@ -69,7 +69,7 @@ export default class SiderDemo extends Component {
 							<Breadcrumb style={{ marginLeft: '20px' }}>
 								<Breadcrumb.Item>Home</Breadcrumb.Item>
 								<Breadcrumb.Item>
-									<a href="">Application Center</a>
+									<a href="/tables">Application Center</a>
 								</Breadcrumb.Item>
 								<Breadcrumb.Item>
 									<a href="">Application List</a>
@@ -99,7 +99,7 @@ export default class SiderDemo extends Component {
 
 						<Mycontent />
 					</Content>
-
+					<Footer style={{ textAlign: 'center', color: '#888' }}>推荐使用谷歌浏览器，可获得更佳页面操作体验</Footer>
 				</Layout>
 
 			</Layout>

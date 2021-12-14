@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-09-02 12:03:56
- * @LastEditTime: 2021-11-09 17:38:15
+ * @LastEditTime: 2021-11-10 09:22:23
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-react\src\App.js
@@ -23,8 +23,8 @@ export default class App extends Component {
 		return (
 			<>
 				<Switch>
-					<Route path="/" component={Admin} exact />
 					<Route path="/login" component={Login} />
+					<Route path="/" component={Admin} />
 
 					{/* <Redirect to='/'></Redirect> */}
 

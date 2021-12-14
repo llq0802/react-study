@@ -1,10 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {
   UploadOutlined,
 } from '@ant-design/icons';
 import { Card, Col, Row, Divider, List, Typography, PageHeader, Space, Upload, Button, Popconfirm, Steps, } from 'antd';
 const { Step } = Steps;
 export default function Home() {
+
+  useEffect(() => {
+    // console.log(window.print());
+    document.oncopy = (event) => {
+      console.log(event);
+    }
+
+
+
+
+  }, [])
+
+
   return (
     <>
       <PageHeader
