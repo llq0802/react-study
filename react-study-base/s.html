@@ -1,0 +1,307 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-09-10 09:49:10
+ * @LastEditTime: 2021-12-27 09:26:38
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \react-study\s.html
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <style>
+      .container {
+        box-sizing: border-box;
+        border: 1px solid red;
+        padding: 40px;
+      }
+    </style>
+    <div class="container">123</div>
+
+    <script>
+      // const fnc = (a) => (b) => {
+      //   console.log(a);
+      //   console.log(b);
+      // };
+
+      // fnc(1)(2);
+
+      // console.log(`空字符`, !!'');
+      // console.log(`null`, !!null);
+      // console.log(`null`, !!undefined);
+      // console.log(`null`, !!null);
+      // console.log(`null`, !!NaN);
+      // console.log(`空函数`, !!function () {});
+
+      // console.log(`空对象`, !!{});
+      // console.log(`array`, !![]);
+      // console.log({}.name);
+
+      // console.log(undefined.name);
+      //  Cannot read property 'xxx' of undefined (是因为xxx的左边对象是个undefined)
+
+      // '' null undefined 0 NaN 是假 其他都是真 包括空对象 空数组 空函数
+
+      // var a = (b = c = 1);
+      // console.log(Math.ceil(1.5));
+      // console.log(Math.floor(1.5));
+      // let arr = [1, 2, 3, 4, 5, 6, 7, 8];
+
+      // function fn1(a) {
+      //   let num = 0;
+      //   return function fn2(b) {
+      //     num++;
+      //     console.log(num);
+      //     console.log(a, b);
+      //   };
+      // }
+      // let aaa = fn1(111);
+      // aaa(1);
+      // aaa(2);
+      // aaa(3);
+      // aaa(4);
+      // fn1()();
+      // fn1()();
+      // fn1()();
+      // fn1()();
+
+      // fn1();
+      // setTimeout(function () {
+      //   console.log('定时器');
+      // });
+      // new Promise((resolve, reject) => {
+      //   console.log('promise');
+      // });
+      // async function fn1() {
+      //   console.log('异步函数');
+      // }
+      // console.log('主线程');
+
+      // console.log(Object.prototype.toString.call({}).slice(8, -1));
+
+      // 回调函数:你定义的函数,直接没有调用,但是它执行了
+      // let a = 3;
+      // let obj = { count: 0 };
+      // function fn(a) {
+      //   a = a + 1;
+      //   console.log(0, a);
+      // }
+      // fn(a);
+      // console.log(1, a);
+
+      // function User() {}
+      // let u = new User();
+      // // console.log(User.prototype.constructor === User);
+      // // console.log(u.__proto__.constructor);
+      // // console.log(u.__proto__ == User.prototype);
+
+      // const target = { a: 1 };
+      // const source1 = { b: 2 };
+      // const source2 = { c: 3 };
+      // let newTARGET = Object.assign(target, source1, source2);
+      // console.log(newTARGET); // {a:1, b:2, c:3}
+      // newTARGET.d = 4;
+      // console.log(target); // {a:1, b:2, c:3}
+      // // Object.assign() 合并对象,第一个参数是之前的对象,后面参数和要合并的对象
+
+      // let i = 1;
+      // function foo(i) {
+      //   if (i === 4) {
+      //     return;
+      //   }
+      //   i++;
+      //   console.log('之前', i);
+      //   foo(i);
+      //   console.log('之后', 2);
+      // }
+      // foo(i);
+      // function foo(i) {
+      //   console.log(i);
+      //   var i = 10;
+      //   console.log(i);
+      // }
+      // foo(1);
+      // let i = 0;
+      // let id = setInterval(() => {
+      //   i++;
+      //   console.log(i);
+      //   if (i === 4) {
+      //     clearInterval(id);
+      //   }
+      // }, 2000);
+
+      // let obj = {
+      //   name: 'foo',
+      //   data: [10],
+      // };
+      // let { data: res } = obj;
+      // console.log(res);
+      // let p = new Promise((resolve, reject) => {
+      //   resolve(1);
+      // });
+      // p.then((i) => {
+      //   console.log(i);
+      // });
+
+      ////////////////////////////////--
+      class Pro {
+        constructor(executor) {
+          this.status = 'pending';
+          this.value = null;
+          this.callbacks = [];
+          function resolve(value) {
+            if (this.status === 'pending') {
+              this.status = 'resolve';
+              this.value = value;
+              this.callbacks.forEach((item) => {
+                item.onReject && item.onReject(this.value);
+              });
+            }
+          }
+          function reject(value) {
+            if (this.status === 'pending') {
+              this.status = 'reject';
+              this.value = value;
+              this.callbacks.forEach((item) => {
+                item.onResolve && item.onResolve(this.value);
+              });
+            }
+          }
+          try {
+            executor(resolve.bind(this), reject.bind(this));
+          } catch (error) {
+            reject(error);
+          }
+        }
+
+        then(onResolve, onReject) {
+          if (typeof onResolve !== 'function') {
+            onResolve = (value) => value;
+          }
+          if (typeof onReject !== 'function') {
+            onReject = (value) => value;
+          }
+
+          let thenPro = new Pro((resolve, reject) => {
+            function callFn(type) {
+              let result = type(this.value);
+              if (result == thenPro) {
+                throw new Error('then函数不能返回上一次的Pomise');
+              }
+              try {
+                if (result instanceof Pro) {
+                  result.then(
+                    (v) => {
+                      resolve(v);
+                    },
+                    (r) => {
+                      reject(r);
+                    }
+                  );
+                } else {
+                  resolve(result);
+                }
+              } catch (error) {
+                reject(error);
+              }
+            }
+
+            if (this.status === 'pending') {
+              this.callbacks.push({
+                onResolve: () => {
+                  callFn(onResolve);
+                },
+                onReject: () => {
+                  callFn(onReject);
+                },
+              });
+            }
+
+            if (this.status === 'resolve') {
+              setTimeout(() => {
+                callFn(onResolve);
+              });
+            }
+            if (this.status === 'reject') {
+              setTimeout(() => {
+                callFn(onReject);
+              });
+            }
+          });
+
+          return thenPro;
+        }
+        catch(onReject) {
+          this.then(undefined, onReject);
+        }
+        resolve(value) {
+          return new Pro((resolve, reject) => {
+            if (value instanceof Pro) {
+              value.then(
+                (v) => {
+                  resolve(v);
+                },
+                (r) => {
+                  reject(r);
+                }
+              );
+            } else {
+              resolve(value);
+            }
+          });
+        }
+        reject(value) {
+          return new Pro((reject, resolve) => {
+            resolve(value);
+          });
+        }
+
+        static race(promiseArr) {
+          return new Pro((resolve, reject) => {
+            promiseArr.forEach((promise) => {
+              promise.then(
+                (v) => {
+                  resolve(v);
+                },
+                (r) => {
+                  reject(r);
+                }
+              );
+            });
+          });
+        }
+
+        static all(promiseArr) {
+          let arr = [];
+          return new Pro((resolve, reject) => {
+            promiseArr.forEach((promise, index) => {
+              promise.then(
+                (v) => {
+                  arr[index] = v;
+                  if (arr.length === promiseArr.length) {
+                    resolve(arr);
+                  }
+                },
+                (r) => {
+                  reject(r);
+                }
+              );
+            });
+          });
+        }
+      }
+
+      function stuck() {}
+
+      console.log(1003 % 2);
+      console.log(Math.floor(27 / 2));
+    </script>
+  </body>
+</html>

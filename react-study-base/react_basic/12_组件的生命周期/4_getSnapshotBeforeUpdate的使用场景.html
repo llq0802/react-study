@@ -1,0 +1,102 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-09-02 09:13:55
+ * @LastEditTime: 2021-12-24 17:57:14
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \react-study\react_basic\12_组件的生命周期\4_getSnapshotBeforeUpdate的使用场景.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>4_getSnapShotBeforeUpdate的使用场景</title>
+    <style>
+      .list {
+        width: 200px;
+        height: 150px;
+        background-color: skyblue;
+        overflow: auto;
+      }
+      .news {
+        height: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 准备好一个“容器” -->
+    <div id="test"></div>
+
+    <!-- 引入react核心库 -->
+    <script type="text/javascript" src="../js/17.0.1/react.development.js"></script>
+    <!-- 引入react-dom，用于支持react操作DOM -->
+    <script type="text/javascript" src="../js/17.0.1/react-dom.development.js"></script>
+    <!-- 引入babel，用于将jsx转为js -->
+    <script type="text/javascript" src="../js/17.0.1/babel.min.js"></script>
+
+    <script type="text/babel">
+      class NewsList extends React.Component {
+        state = { newsArr: [] };
+
+        //若state的值在任何时候都取决于props，那么可以使用getDerivedStateFromProps
+        static getDerivedStateFromProps(props, state) {
+          console.log('getDerivedStateFromProps', props, state);
+          return null;
+        }
+        // 更新阀门
+        shouldComponentUpdate() {
+          return true;
+        }
+        //加载完成
+        componentDidMount() {
+          setInterval(() => {
+            //获取原状态
+            const { newsArr } = this.state;
+            //模拟一条新闻
+            const news = '新闻' + (newsArr.length + 1);
+            //更新状态
+            // this.setState({ newsArr: [news, ...newsArr] });
+            // this.setState({ newsArr: newsArr.unshift(news) });
+            this.setState(
+              (state, props) => {
+                return {
+                  newsArr: [news, ...newsArr],
+                };
+              },
+              () => {
+                console.log('1111');
+              }
+            );
+          }, 1000);
+        }
+
+        // 更新之前的快照
+        getSnapshotBeforeUpdate() {
+          return this.refs.list.scrollHeight;
+        }
+
+        // 更新完成
+        componentDidUpdate(preProps, preState, height) {
+          this.refs.list.scrollTop += this.refs.list.scrollHeight - height;
+        }
+        // 渲染
+        render() {
+          return (
+            <div className="list" ref="list">
+              {this.state.newsArr.map((n, index) => {
+                return (
+                  <div key={index} className="news">
+                    {n}
+                  </div>
+                );
+              })}
+            </div>
+          );
+        }
+        //组件将要卸载
+        componentWillMount() {}
+      }
+      ReactDOM.render(<NewsList />, document.getElementById('test'));
+    </script>
+  </body>
+</html>
