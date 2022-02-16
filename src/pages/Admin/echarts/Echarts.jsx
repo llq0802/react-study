@@ -71,7 +71,6 @@ const Echarts = () => {
       setVisible(true)
       resolve()
     })
-
   }
   const showDrawer = async () => {
     // setTimeout(() => {

@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-09-02 12:03:56
- * @LastEditTime: 2021-09-27 17:19:29
+ * @LastEditTime: 2021-12-14 16:24:14
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-react\src\index.js
@@ -23,6 +23,8 @@ import store from './redux/store';
 //   document.getElementById('root')
 // );
 // process.env.url = 11;
+console.log(process.env);
+
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>

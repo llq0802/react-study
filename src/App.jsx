@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-09-02 12:03:56
- * @LastEditTime: 2021-11-10 09:22:23
+ * @LastEditTime: 2021-12-28 09:15:01
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \my-react\src\App.js
@@ -18,6 +18,9 @@ import React, { Component, } from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 import Admin from './pages/Admin/index.jsx'
 import Login from './pages/Login/Login.jsx'
+
+// const Admin = () => (import('./pages/Admin/index.jsx'))
+// const Login = () => (import('./pages/Login/Login.jsx'))
 export default class App extends Component {
 	render() {
 		return (
@@ -26,11 +29,19 @@ export default class App extends Component {
 					<Route path="/login" component={Login} />
 					<Route path="/" component={Admin} />
 
+
 					{/* <Redirect to='/'></Redirect> */}
 
-					{/* <Route path="/" render={() => {
+					{/* <Route path='/'>
+							<Admin/>
+					</Route> */}
+
+
+					{/* <Route path="/" render={(props) => {
 						return 1 ? <Admin /> : <Redirect to="/login" />
 					}} /> */}
+
+
 				</Switch>
 
 			</>
@@ -70,6 +81,7 @@ export default class App extends Component {
 // 		}} />
 // 	)
 // }
+
 // 或者:
 // return (
 // 	<Route

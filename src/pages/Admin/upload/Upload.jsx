@@ -26,7 +26,6 @@ export default function Upload() {
           img.width = img.width / n
         }
         ctx.clearRect(0, 0, _canvas.width, _canvas.height)
-
         ctx.drawImage(img, 0, 0, img.width, img.height)
         console.log(ctx);
         console.log(ctx.getImageData);
