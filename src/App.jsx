@@ -129,3 +129,25 @@ export default class App extends Component {
 // 		</Switch>
 // 	</BrowserRouter>
 // );
+
+
+
+//antd4 动态创建Icon图标
+// import React from "react";
+// import  * as Icon from '@ant-design/icons';
+// let iconType = 'FastBackwardOutlined';
+// export default function Aicon(iconType) {
+//   return (
+//     <div >
+//     {
+//       React.createElement(
+//         Icon[iconType],
+//         {
+//           style:{ fontSize: '16px', color: '#08c' }
+//         }
+//       )
+//     }
+//     </div>
+//   );
+// }
+
