@@ -50,7 +50,7 @@
     						2.<Route path="/">
     								<Demo/>
     							<Route />
-								3. <Route path="/demo" render=(props)=>(Demo)/>
+    							3. <Route path="/demo" render=(props)=>(Demo)/>
 
     		2.存放位置不同：
     					一般组件：components
@@ -88,7 +88,7 @@
 
     			1.public/index.html 中 引入样式时不写 ./ 写 / （常用）
     			2.public/index.html 中 引入样式时不写 ./ 写 %PUBLIC_URL% （常用）
-					
+
     			3.使用HashRouter
 
 ## 八、路由的严格匹配与模糊匹配
@@ -139,6 +139,8 @@
     						-this.prosp.history.goBack()
     						-this.prosp.history.goForward()
     						-this.prosp.history.go()
+    						-this.prosp.history.listen()监听
+    				.
 
 ## 十三、BrowserRouter 与 HashRouter 的区别
 

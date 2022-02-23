@@ -33,7 +33,7 @@ export default class App extends Component {
 					{/* <Redirect to='/'></Redirect> */}
 
 					{/* <Route path='/'>
-							<Admin/>
+						<Admin />
 					</Route> */}
 
 

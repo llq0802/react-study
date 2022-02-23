@@ -71,7 +71,7 @@
           console.log('Count---componentDidMount');
         } //控制组件更新的“阀门”
 
-        shouldComponentUpdate() {
+        shouldComponentUpdate(nextProps, nextState) {
           console.log('Count---shouldComponentUpdate');
           return true;
         }
@@ -106,7 +106,7 @@
       }
 
       //渲染组件
-      ReactDOM.render(<Count count={199} />, document.getElementById('test'));
+      ReactDOM.render(<Count count={29000} />, document.getElementById('test'));
     </script>
   </body>
 </html>

@@ -5,18 +5,21 @@ import Home from '../../pages/Admin/home/Home.jsx'
 import Upload from '../../pages/Admin/upload/Upload.jsx'
 import File from '../../pages/Admin/file/File.jsx'
 import Echarts from '../../pages/Admin/echarts/Echarts.jsx'
+import Hook from '../../pages/Hooks/Usecontext.jsx'
 
 
 export default function Mycontent() {
   return (
     <>
       <Switch>
-        {/* <Redirect exact from='/' to='/home' /> */}
-        <Route path="/" component={Home}></Route>
+        <Redirect exact from='/' to='/home' />
+        <Route exact path="/home" component={Home}></Route>
+        {/* <Route exact path="/" component={Home}></Route> */}
         <Route path="/tables" component={Tables}></Route>
         <Route path="/upload" component={Upload}></Route>
         <Route path="/file" component={File}></Route>
         <Route path="/echarts" component={Echarts}></Route>
+        <Route path="/hooks" component={Hook}></Route>
       </Switch>
     </>
   )

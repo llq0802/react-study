@@ -67,7 +67,7 @@
 
         //组件挂载完毕的钩子
         componentDidMount() {
-          console.log('Count---componentDidMount');
+          console.log('Count---componentDidMount', this.ref);
         }
 
         //控制组件更新的“阀门”
@@ -86,8 +86,8 @@
           console.log('Count---componentDidUpdate');
         }
         //父组件传给子组件新数据时触发
-        componentWillReceiveProps(props) {
-          console.log(props);
+        componentWillReceiveProps(nextProps) {
+          console.log(nextProps);
         }
         //组件将要卸载的钩子
         componentWillUnmount() {
@@ -98,7 +98,7 @@
           console.log('Count---render');
           const { count } = this.state;
           return (
-            <div>
+            <div ref={(e) => (this.ref = e)}>
               <h2>当前求和为：{count}</h2>
               <button onClick={this.add}>点我+1</button>
               <button onClick={this.death}>卸载组件</button>
@@ -136,7 +136,7 @@
         }
 
         //控制组件更新的“阀门”
-        shouldComponentUpdate() {
+        shouldComponentUpdate(nextProps, nextState) {
           console.log('B---shouldComponentUpdate');
           return true;
         }

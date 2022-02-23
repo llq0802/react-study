@@ -71,7 +71,7 @@
         }
 
         // 更新之前的快照
-        getSnapshotBeforeUpdate() {
+        getSnapshotBeforeUpdate(preProps, preState) {
           return this.refs.list.scrollHeight;
         }
 

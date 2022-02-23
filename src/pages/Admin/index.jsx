@@ -10,7 +10,7 @@ import Mycontent from '../../components/my-content/Mycontent';
 import { Transition } from 'react-transition-group';
 
 
-import './index.scss'
+// import './index.scss'
 
 
 const { Header, Sider, Content, Footer } = Layout;

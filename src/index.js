@@ -23,7 +23,7 @@ import store from './redux/store';
 //   document.getElementById('root')
 // );
 // process.env.url = 11;
-console.log(process.env);
+// console.log(process.env);
 
 ReactDOM.render(
   <Provider store={store}>
