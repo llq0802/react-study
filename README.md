@@ -1,3 +1,5 @@
+umi.js dva.js antd4
+
 ## 一、todoList 案例相关知识点
 
     	1.拆分组件、实现静态组件，注意：className、style的写法
@@ -172,10 +174,6 @@
 
     			4.备注：不用在组件里亲自引入样式了，即：import 'antd/dist/antd.css'应该删掉
 
-
-
-
-
 # day01
 
 ## 1. 项目开发准备
@@ -215,7 +213,6 @@
     7). 如果远程修改
         git pull origin dev
 
-
 ## 4. 创建项目的基本结构
 
     api: ajax请求的模块
@@ -237,7 +234,6 @@
     使用antd的组件
         根据antd的文档编写
 
-
 ## 6. 引入路由
 
     下载包: react-router-dom
@@ -248,7 +244,6 @@
       <BrowserRouter>
       <Switch>
       <Route path='' component={}/>
-
 
 ## 7. Login 的静态组件
 
@@ -283,7 +278,6 @@
               if(!error) {通过了验证, 发送ajax请求}
             })
 
-
 ## 9. 高阶函数与高阶组件
 
     1. 高阶函数
@@ -307,7 +301,6 @@
         高阶组件是特别的高阶函数
         接收一个组件函数, 返回是一个新的组件函数
 
-
 # day02
 
 ## 1. 后台应用
@@ -317,7 +310,6 @@
         访问测试: post请求的参数在body中设置
         保存测试接口
         导出/导入所有测试接口
-
 
 ## 2. 编写 ajax 代码
 
@@ -356,7 +348,6 @@
         c. 哪里写async?
             await所在函数(最近的)定义的左侧写async
 
-
 ## 3. 实现登陆(包含自动登陆)
 
     login.jsx
@@ -378,7 +369,6 @@
     memoryUtils.js
         用来在内存中保存数据(user)的工具类
 
-
 ## 4. 搭建 admin 的整体界面结构
 
     1). 整体布局使用antd的Layout组件
@@ -388,7 +378,6 @@
     3). 子路由
         定义路由组件
         注册路由
-
 
 ## 5. LeftNav 组件
 
@@ -415,7 +404,6 @@
         刷新子菜单路径时, 自动打开子菜单列表?
             openKey是 一级列表项的某个子菜单项是当前对应的菜单项
 
-
 # day03
 
 ## 1. Header 组件
@@ -441,7 +429,6 @@
         通过...透传所有接收的属性: <Button {...props} />    <LinkButton>xxxx</LinkButton>
         组件标签的所有子节点都会成为组件的children属性
 
-
 ## 2. jsonp 解决 ajax 跨域的原理
 
     1). jsonp只能解决GET类型的ajax请求跨域问题
@@ -455,7 +442,6 @@
         浏览器端:
             收到响应自动执行函数调用的js代码, 也就执行了提前定义好的回调函数, 并得到了需要的结果数据
 
-
 # day04: Category 组件
 
 ## 1. 使用 antd 组件构建分类列表界面
@@ -465,13 +451,11 @@
     Button
     Icon
 
-
 ## 2. 相关接口请求函数
 
     获取一级/二级分类列表
     添加分类
     更新分类
-
 
 ## 3. 异步显示一级分类列表
 
@@ -487,7 +471,6 @@
         setState()更新状态是异步更新的, 直接读取状态值还是旧的状态值
         setState({}, [callback]), 回调函数是在状态更新且界面更新之后执行, 可以在此获取最新的状态
 
-
 ## 5. 更新分类
 
     1). 界面
@@ -498,8 +481,6 @@
         父组(Category)件得到子组件(AddForm)的数据(form)
         调用更新分类的接口
         重新获取分类列表
-
-
 
 # day05
 
@@ -524,7 +505,6 @@
         默认: 逐层匹配   <Route path='/product' component={ProductHome}/>
         exact属性: 完全匹配
 
-
 ## 3. 分页实现技术(2 种)
 
     1). 前台分页
@@ -541,7 +521,6 @@
 
     3). 如何选择?
         基本根据数据多少来选择
-
 
 ## 4. ProductHome 组件
 
@@ -576,7 +555,6 @@
 
     5). 进入添加界面
         history.push('/product/addupdate')
-
 
 ## 5. ProductDetail 组件
 
@@ -784,7 +762,6 @@
     	ui组件(components): 不使用redux相关API
     	容器组件(containers): 通过connect()()生成的组件
 
-
 # day10
 
 ## 1. 在项目中搭建 redux 整套环境
@@ -804,7 +781,6 @@
     4). 相关组件:
         left-nav.js
         header.js
-
 
 ## 3. 通过 redux 管理登陆用户信息 user 数据
 
