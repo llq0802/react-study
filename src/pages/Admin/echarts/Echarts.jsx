@@ -54,7 +54,7 @@ const Echarts = () => {
       }
     ]
   });
-
+  let flag = null
   const axiosFn = () => {
     // axios.get('https://api.oick.cn/lishi/api.php').then((res) => {
     //   console.log(res.data);
@@ -72,14 +72,35 @@ const Echarts = () => {
       resolve()
     })
   }
+  useEffect(() => {
+
+    // const eid = document.querySelector('#eid')
+    // console.log(eid);
+    // if (!visible) return
+    // console.log(bar?.current);
+    // if (bar?.current) myChart = echarts.init(bar.current);
+    // myChart?.setOption(state)
+  }, [visible])
   const showDrawer = async () => {
+    await setVisible(true);
+    // const eid = document.querySelector('#eid')
+    // console.log(eid);
+
+    // console.log(bar?.current);
     // setTimeout(() => {
-    //  setVisible(true);
+    //   setVisible(true);
     //   if (bar?.current) myChart = echarts.init(bar.current);
     //   myChart.setOption(state)
     // })
-    await wait()
-    if (bar?.current) myChart = echarts.init(bar.current);
+    // await wait()
+    // console.log(visible);
+    let myChart
+    if (!flag) {
+      myChart = echarts.init(bar.current);
+      flag = myChart
+      myChart.setOption(state)
+      return
+    }
     myChart.setOption(state)
   };
 
@@ -102,7 +123,7 @@ const Echarts = () => {
         },
 
       }
-      console.log(mapChart);
+      // console.log(mapChart);
       mapChart.setOption(options)
       mapChart.on('click', (e) => {
         console.log(e);
@@ -141,7 +162,7 @@ const Echarts = () => {
       }} ></div>
 
       <Drawer title="Basic Drawer" placement="right" onClose={onClose} visible={visible} width='60%'>
-        <div ref={bar} style={{
+        <div ref={bar} id='eid' style={{
           width: '100%',
           height: '400px'
         }}></div>

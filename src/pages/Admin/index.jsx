@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { withRouter } from 'react-router-dom'
 import { Layout, Menu, Breadcrumb, Avatar, Dropdown, Space, } from 'antd';
 import {
 	MenuUnfoldOutlined,
@@ -24,8 +25,7 @@ const menu = (
 		</Menu.Item>
 
 	</Menu>)
-
-export default class SiderDemo extends Component {
+class SiderDemo extends Component {
 	state = {
 		collapsed: false,
 	};
@@ -44,14 +44,32 @@ export default class SiderDemo extends Component {
 					style={{ position: 'fixed', height: '100vh', overflow: 'hidden', }}>
 
 					{!this.state.collapsed ? <div className="logo"> React APP </div> : <div style={{ color: 'white', textAlign: 'center', padding: '10px 0px', transition: 'all .2' }}>LLQ</div>}
-					<Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-						<Menu.Item key="1" icon={<UserOutlined />}>
-							nav 1
-						</Menu.Item>
-						<Menu.Item key="2" icon={<VideoCameraOutlined />}>
-							nav 2
-						</Menu.Item>
+					<Menu theme="dark" mode="inline" >
 
+						<Menu.Item key="2" icon={<VideoCameraOutlined />}>
+							<a href="/">首页</a>
+						</Menu.Item>
+						<Menu.Item key="1" icon={<UserOutlined />} >
+							<a href="/tree">tree</a>
+						</Menu.Item>
+						<Menu.Item key="4" icon={<UserOutlined />} >
+							<a href="/form">form</a>
+						</Menu.Item>
+						<Menu.Item key="3" icon={<UserOutlined />} >
+							<a href="/hooks">hooks</a>
+						</Menu.Item>
+						<Menu.Item key="5" icon={<UserOutlined />} >
+							<a href="/table">table</a>
+						</Menu.Item>
+						<Menu.Item key="6" icon={<UserOutlined />} >
+							<a href="/echarts">echarts</a>
+						</Menu.Item>
+						<Menu.Item key="7" icon={<UserOutlined />} >
+							<a href="/qrcode">qrcode</a>
+						</Menu.Item>
+						<Menu.Item key="8" icon={<UserOutlined />} >
+							<a href="/roll">roll</a>
+						</Menu.Item>
 					</Menu>
 				</Sider>
 				<Layout className="site-layout" style={{ marginLeft: !this.state.collapsed ? '200px' : '80px', transition: 'all .2s' }}>
@@ -102,7 +120,8 @@ export default class SiderDemo extends Component {
 					<Footer style={{ textAlign: 'center', color: '#888' }}>推荐使用谷歌浏览器，可获得更佳页面操作体验</Footer>
 				</Layout>
 
-			</Layout>
+			</Layout >
 		);
 	}
 }
+export default SiderDemo

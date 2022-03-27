@@ -138,7 +138,7 @@ export default class App extends Component {
 // let iconType = 'FastBackwardOutlined';
 // export default function Aicon(iconType) {
 //   return (
-//     <div >
+//     <span >
 //     {
 //       React.createElement(
 //         Icon[iconType],
@@ -147,7 +147,7 @@ export default class App extends Component {
 //         }
 //       )
 //     }
-//     </div>
+//     </span>
 //   );
 // }
 

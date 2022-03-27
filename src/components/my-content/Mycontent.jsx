@@ -6,6 +6,10 @@ import Upload from '../../pages/Admin/upload/Upload.jsx'
 import File from '../../pages/Admin/file/File.jsx'
 import Echarts from '../../pages/Admin/echarts/Echarts.jsx'
 import Hook from '../../pages/Hooks/Usecontext.jsx'
+import Tree from '../../pages/Tree/Tree.jsx'
+import Form from '../../pages/Form/index.jsx'
+import Qrcode from '../../pages/Qrcode/index.jsx'
+import Roll from '../../pages/Roll/index.jsx'
 
 
 export default function Mycontent() {
@@ -20,6 +24,10 @@ export default function Mycontent() {
         <Route path="/file" component={File}></Route>
         <Route path="/echarts" component={Echarts}></Route>
         <Route path="/hooks" component={Hook}></Route>
+        <Route path="/tree" component={Tree}></Route>
+        <Route path="/form" component={Form}></Route>
+        <Route path="/qrcode" component={Qrcode}></Route>
+        <Route path="/roll" component={Roll}></Route>
       </Switch>
     </>
   )
