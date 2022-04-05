@@ -10,6 +10,8 @@ import Tree from '../../pages/Tree/Tree.jsx'
 import Form from '../../pages/Form/index.jsx'
 import Qrcode from '../../pages/Qrcode/index.jsx'
 import Roll from '../../pages/Roll/index.jsx'
+import Check from '../../pages/Check/index.jsx'
+import TestHook from '../../pages/TestHook/index.jsx'
 
 
 export default function Mycontent() {
@@ -28,6 +30,8 @@ export default function Mycontent() {
         <Route path="/form" component={Form}></Route>
         <Route path="/qrcode" component={Qrcode}></Route>
         <Route path="/roll" component={Roll}></Route>
+        <Route path="/check" component={Check}></Route>
+        <Route path="/test" component={TestHook}></Route>
       </Switch>
     </>
   )

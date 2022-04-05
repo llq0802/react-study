@@ -31,6 +31,7 @@ export default function Upload() {
         console.log(ctx.getImageData);
         console.log(ctx.putImageData);
         console.log(_canvas.toDataURL);
+        // _canvas.toDataURL()
       }
     }
   }
