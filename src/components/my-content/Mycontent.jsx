@@ -12,6 +12,7 @@ import Qrcode from '../../pages/Qrcode/index.jsx'
 import Roll from '../../pages/Roll/index.jsx'
 import Check from '../../pages/Check/index.jsx'
 import TestHook from '../../pages/TestHook/index.jsx'
+import UploadFile from '../../pages/UploadFile/index.jsx'
 
 
 export default function Mycontent() {
@@ -32,6 +33,7 @@ export default function Mycontent() {
         <Route path="/roll" component={Roll}></Route>
         <Route path="/check" component={Check}></Route>
         <Route path="/test" component={TestHook}></Route>
+        <Route path="/uploadfile" component={UploadFile}></Route>
       </Switch>
     </>
   )

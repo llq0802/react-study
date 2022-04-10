@@ -76,6 +76,9 @@ class SiderDemo extends Component {
 						<Menu.Item key="10" icon={<UserOutlined />} >
 							<a href="/test">TestHook</a>
 						</Menu.Item>
+						<Menu.Item key="11" icon={<UserOutlined />} >
+							<a href="/uploadfile">uploadfile</a>
+						</Menu.Item>
 					</Menu>
 				</Sider>
 				<Layout className="site-layout" style={{ marginLeft: !this.state.collapsed ? '200px' : '80px', transition: 'all .2s' }}>
