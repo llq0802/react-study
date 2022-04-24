@@ -13,6 +13,7 @@ import Roll from '../../pages/Roll/index.jsx'
 import Check from '../../pages/Check/index.jsx'
 import TestHook from '../../pages/TestHook/index.jsx'
 import UploadFile from '../../pages/UploadFile/index.jsx'
+import Player from '../../pages/Player/index.jsx'
 
 
 export default function Mycontent() {
@@ -34,6 +35,7 @@ export default function Mycontent() {
         <Route path="/check" component={Check}></Route>
         <Route path="/test" component={TestHook}></Route>
         <Route path="/uploadfile" component={UploadFile}></Route>
+        <Route path="/player" component={Player}></Route>
       </Switch>
     </>
   )

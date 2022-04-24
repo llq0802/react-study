@@ -1,5 +1,6 @@
-import React, { key, FC, Component, useEffect, useState, createContext, useContext, useRef, forwardRef, useImperativeHandle } from 'react'
+import React, { useMemo, key, FC, Component, useEffect, useState, createContext, useContext, useRef, forwardRef, useImperativeHandle } from 'react'
 import { Button } from 'antd'
+import Child from './Child'
 // const CountContext = createContext([{ age: 20 }])
 // export default function A(props) {
 //   let [count, setCount] = useState(77)
@@ -72,22 +73,33 @@ import { Button } from 'antd'
 //   return <button onClick={() => add()}>点我</button>;
 // }
 
-let params = 1
-export default function Counte() {
-  const aa = useRef(0)
-  const [count, setCount] = useState(0);
 
+export default function Counte() {
+  let ps = 99
+  const [count, setCount] = useState(0);
+  const [cur, setCur] = useState(0);
+  let cc = useMemo(() => count + 2, [count])
   useEffect(() => {
-    // console.log(111);
-  }, [params]);
+    const init = () => {
+      console.log('init');
+    }
+    init()
+  }, []);
+
+
   const handleClick = () => {
-    params += 1
-    aa.current += 1
-    setCount(aa.current)
-    console.log(count);
-    console.log(aa.current);
+    // setCount(count + 2)
+    // console.log(cc);
+    ps++
+    console.log(ps);
   }
 
 
-  return (<h1 onClick={() => handleClick()}>Now: {count},{aa.current} {params}</h1>)
+
+  return <>
+    <div>{cc}</div>
+    <Button onClick={handleClick}>点击</Button>
+    <Child cur={cur} ps={ps}></Child>
+  </>
+
 }
