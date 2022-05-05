@@ -10,7 +10,6 @@
     "antd": "^4.16.13",
     "axios": "^0.24.0",
     "echarts": "^5.2.2",
-    "node-sass": "4.14.1",
     "qrcode.react": "^3.0.0",
     "rc-virtual-list": "^3.4.6",
     "react": "^17.0.2",
@@ -54,5 +53,7 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "sass": "^1.51.0"
+  }
 }

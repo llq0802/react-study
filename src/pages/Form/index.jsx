@@ -154,7 +154,7 @@ function Inp(props) {
 function Item(props) {
   console.log('Item');
   return (
-    <Form.Item label="BirthDate" help={<span>提示</span>} style={{ marginBottom: 0 }}>
+    <Form.Item required label="BirthDate" help={<span>提示</span>} style={{ marginBottom: 0 }}>
       <Form.Item
         name="year"
         rules={[{ required: true }]}
@@ -192,6 +192,3 @@ function usePreValue(value) {
 
 
 
-[11.22].reduce((pre, cur) => {
-
-}, 0)

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-
+import styles from './upload.module.scss'
 export default function Upload() {
   let _canvas = null
   const c = useRef(null)
@@ -13,25 +13,33 @@ export default function Upload() {
     fr.onload = (e) => {
       let img = new Image()
       img.src = e.target.result
-      console.log(img);
+      // console.log(img);
       img.onload = () => {
+
+        // if (img.width >= _canvas.width) {
+        //   let n = img.width / _canvas.width
+        //   img.width = _canvas.width
+        //   img.height = img.height / n
+        // } else {
+        //   let n = img.height / _canvas.height
+        //   img.height = _canvas.height
+        //   img.width = img.width / n
+        // }
+
+        _canvas.height = 300
+        let scale = img.height / _canvas.height
+        _canvas.width = img.width / scale
         const ctx = _canvas.getContext("2d")
-        if (img.width >= _canvas.width) {
-          let n = img.width / _canvas.width
-          img.width = _canvas.width
-          img.height = img.height / n
-        } else {
-          let n = img.height / _canvas.height
-          img.height = _canvas.height
-          img.width = img.width / n
-        }
-        ctx.clearRect(0, 0, _canvas.width, _canvas.height)
-        ctx.drawImage(img, 0, 0, img.width, img.height)
-        console.log(ctx);
-        console.log(ctx.getImageData);
-        console.log(ctx.putImageData);
-        console.log(_canvas.toDataURL);
+        ctx.clearRect(0, 0, img.width, img.height)
+        ctx.drawImage(img, 0, 0, _canvas.width, _canvas.height)
+
+        // console.log(ctx);
+        // console.log(ctx.getImageData);
+        // console.log(ctx.putImageData);
+        // console.log(_canvas.toDataURL);
+        // const can2 = document.createElement('canvas');
         // _canvas.toDataURL()
+
       }
     }
   }
@@ -50,16 +58,24 @@ export default function Upload() {
     // console.log(canvas.toDataURL);
   }
 
+  const handleCanvasClick = (e) => {
+    console.log(e.nativeEvent.offsetX);
+    console.log(e.nativeEvent.offsetY);
+  }
+
   return (
     <div className="container">
 
-      <canvas width="300" height="300" ref={v => (_canvas = v)}>
+      <canvas width="300" height="300" ref={v => (_canvas = v)} style={{ border: '1px solid red' }}
+        onClick={handleCanvasClick}
+      >
       </canvas>
 
 
       <hr />
       <input type="file" style={{ display: 'none' }} ref={c} onChange={handleChange} />
       <button onClick={choosePicture}>选择图片</button>
+
       <button onClick={savePicture}>保存图片</button>
     </div>
   )
