@@ -129,7 +129,7 @@
     							this.prosp.history.push('/demo/test',{name:'tom',age:18})
     						注册路由(无需声明，正常注册即可)：<Route path="/demo/test" component={Test}/>
     						接收参数：this.props.location.state
-    						备注：刷新也可以保留住参数
+    						备注：在histroy模式刷新也可以保留住参数
 
 ## 十二、编程式路由导航
 

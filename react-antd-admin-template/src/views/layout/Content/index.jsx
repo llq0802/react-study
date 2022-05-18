@@ -37,7 +37,6 @@ const LayoutContent = (props) => {
           >
             <Switch location={location}>
               <Redirect exact from="/" to="/dashboard" />
-              
               {routeList.map((route) => {
                 return (
                   handleFilter(route) && (

@@ -18,7 +18,9 @@ export default function index() {
       <ReactPlayer
         // ref={playerRef}
         // url='https://new.iskcd.com/20220312/fusUQfym/index.m3u8'
-        url='https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4'
+        // url='https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4'
+
+        url='http://ivi.bupt.edu.cn/hls/cctv9.m3u8'
         width='100%'
         height='100%'
         controls
