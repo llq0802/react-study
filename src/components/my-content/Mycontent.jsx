@@ -20,9 +20,9 @@ export default function Mycontent() {
   return (
     <>
       <Switch>
-        <Redirect exact from='/' to='/home' />
-        <Route exact path="/home" component={Home}></Route>
-        {/* <Route exact path="/" component={Home}></Route> */}
+        {/* <Redirect exact from='/' to='/home' /> */}
+        {/* <Route exact path="/home" component={Home}></Route> */}
+        <Route path="/" component={Home}></Route>
         <Route path="/tables" component={Tables}></Route>
         <Route path="/upload" component={Upload}></Route>
         <Route path="/file" component={File}></Route>

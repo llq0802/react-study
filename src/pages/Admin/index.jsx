@@ -45,7 +45,6 @@ class SiderDemo extends Component {
 
 					{!this.state.collapsed ? <div className="logo"> React APP </div> : <div style={{ color: 'white', textAlign: 'center', padding: '10px 0px', transition: 'all .2' }}>LLQ</div>}
 					<Menu theme="dark" mode="inline" >
-
 						<Menu.Item key="2" icon={<VideoCameraOutlined />}>
 							<a href="/">首页</a>
 						</Menu.Item>
