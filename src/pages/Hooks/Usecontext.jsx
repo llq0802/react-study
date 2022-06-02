@@ -1,6 +1,7 @@
 import React, { useMemo, key, FC, Component, useEffect, useState, createContext, useContext, useRef, forwardRef, useImperativeHandle } from 'react'
 import { Button } from 'antd'
 import Child from './Child'
+import Marquee from '../../components/Marquee/Marquee.tsx'
 // const CountContext = createContext([{ age: 20 }])
 // export default function A(props) {
 //   let [count, setCount] = useState(77)
@@ -74,32 +75,66 @@ import Child from './Child'
 // }
 
 
-export default function Counte() {
-  let ps = 99
-  const [count, setCount] = useState(0);
-  const [cur, setCur] = useState(0);
-  let cc = useMemo(() => count + 2, [count])
-  useEffect(() => {
-    const init = () => {
-      console.log('init');
-    }
-    init()
-  }, []);
+export default function Counte({ age = 20 }) {
+  const [count, setCount] = useState(() => age * 2);
+  const [isMounted, setIsMounted] = useState(false);
 
+  const list = useMemo(() =>
 
-  const handleClick = () => {
-    // setCount(count + 2)
-    // console.log(cc);
-    ps++
-    console.log(ps);
+    age
+
+    , [age])
+
+  if (count === 0) {
+    setCount(999)
   }
 
 
 
-  return <>
-    <div>{cc}</div>
-    <Button onClick={handleClick}>点击</Button>
-    <Child cur={cur} ps={ps}></Child>
-  </>
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsMounted(true);
+    }, 1000)
+  }, []);
+  console.log('Counte');
+  // let cc = useMemo(() => count + 2, [count])
+  // useEffect(() => {
+  //   const init = () => {
+  //     console.log('init');
+  //   }
+  //   init()
+  // }, []);
+  // const handleClick = () => {
+  //   // setCount(count + 2)
+  //   // console.log(cc);
+  //   ps++
+  //   console.log(ps);
+  // }
+
+
+
+
+  return (
+    <>
+      {
+        isMounted ?
+          (
+            <>
+              <Button>点击</Button>
+              <h1>{count}</h1>
+              <Marquee>
+                <h2>784815</h2>
+                <h2>12345</h2>
+              </Marquee>
+            </>
+
+          )
+          : '加载中'
+      }
+
+    </>
+  )
+
 
 }

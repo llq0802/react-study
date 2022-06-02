@@ -15,6 +15,10 @@ class Roll extends React.Component {
       { title: '这是消息7' },
       { title: '这是消息8' },
       { title: '这是消息9' },
+      { title: '这是消息10' },
+      { title: '这是消息11' },
+      { title: '这是消息12' },
+      { title: '这是消息13' },
     ],
     count: 0,
   }
@@ -29,10 +33,17 @@ class Roll extends React.Component {
 
   // 定时器
   begin = () => {
-    this.timer = setInterval(() => {
-      this.Roll()
-    }, 20);
+    // this.timer = setInterval(() => {
+    //   this.Roll()
+    // }, 16);
+    const that = this;
+    (function animloop() {
+      that.Roll()
+      window.requestAnimationFrame(animloop);
+    })();
+
   }
+
 
   // 关闭定时器
   stop = () => {
@@ -46,13 +57,13 @@ class Roll extends React.Component {
     })
     this.rollRef.current.style.top = -0.5 * this.state.count + 'px';
     // 当偏移量达到40px时，将数组中第一个数据剪切到数组的最后，再减去一行高度对应的偏移次数
-    if (-0.5 * this.state.count <= -40) {
+    if (-0.5 * this.state.count <= -64) {
       let arr = this.state.list;
       arr.push(this.state.list[0])
       arr.splice(0, 1);
       this.setState({
         list: arr,
-        count: this.state.count - 50,
+        count: 1,
       })
       this.rollRef.current.style.top = (this.state.count * (-0.5)) + 'px'
     }
@@ -63,15 +74,14 @@ class Roll extends React.Component {
     return (
       <div className='wrapper-box' onMouseEnter={this.stop} onMouseLeave={this.begin} >
         <div className='wrapper-content' ref={this.rollRef}>
-          {this.state.list.map((item) => {
+          {this.state.list.map((item, index) => {
             return (
-              <p className='row'>
-                <a href="#" rel="external nofollow" >
-                  {item.title}
-                </a>
+              <p className='row' key={index}>
+                {item.title}
               </p>
             )
           })}
+
         </div>
       </div>
     )

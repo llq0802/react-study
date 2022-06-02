@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link, NavLink } from 'react-router-dom'
 import { Layout, Menu, Breadcrumb, Avatar, Dropdown, Space, } from 'antd';
 import {
 	MenuUnfoldOutlined,
@@ -29,12 +29,148 @@ class SiderDemo extends Component {
 	state = {
 		collapsed: false,
 	};
+	items = [
+		{
+			label: (
+				<Link to="/" >
+					首页
+				</Link>
+
+			),
+			key: '1',
+			icon: <VideoCameraOutlined />,
+
+		},
+		{
+			key: '2',
+			icon: <UserOutlined />,
+			label: (
+				<Link to="/tree" >
+					tree
+				</Link>
+
+			),
+			// onClick: (e) => {
+			// 	console.log(e);
+			// }
+		},
+		{
+			label: (
+				<Link to="/form" >
+					form
+				</Link>
+
+			),
+			key: '3',
+			icon: < UserOutlined />,
+		},
+		{
+			label: (
+				<Link to="/hooks" >
+					hooks
+				</Link>
+
+			),
+			key: '4',
+			icon: < UserOutlined />,
+		},
+		{
+			label: (
+				<Link to="/table" >
+					table
+				</Link>
+
+			),
+			key: '5',
+			icon: < UserOutlined />,
+		},
+		{
+			label: (
+				<Link to="/echarts" >
+					echarts
+				</Link>
+
+			),
+			key: '6',
+			icon: < UserOutlined />,
+		},
+		{
+			label: (
+				<Link to="/qrcode" >
+					qrcode
+				</Link>
+
+			),
+			key: '7',
+			icon: < UserOutlined />,
+		},
+		{
+			label: (
+				<Link to="/roll" >
+					roll
+				</Link>
+
+			),
+			key: '8',
+			icon: < UserOutlined />,
+		},
+		{
+			label: (
+				<Link to="/check" >
+					Check
+				</Link>
+
+			),
+			key: '9',
+			icon: < UserOutlined />,
+		},
+		{
+			label: (
+				<Link to="/test" >
+					test
+				</Link>
+
+			),
+			key: '10',
+			icon: < UserOutlined />,
+		},
+		{
+			label: (
+				<Link to="/uploadfile" >
+					uploadfile
+				</Link>
+
+			),
+			key: '11',
+			icon: < UserOutlined />,
+		},
+		{
+			label: (
+				<Link to="/player" >
+					player
+				</Link>
+
+			),
+			key: '12',
+			icon: < UserOutlined />,
+		},
+
+
+
+
+
+
+	]
 
 	toggle = () => {
 		this.setState({
 			collapsed: !this.state.collapsed,
 		});
 	};
+	handleMenuClick = ({ key, keyPath, domEvent }) => {
+
+		console.log(key, keyPath);
+	}
 
 	render() {
 		return (
@@ -44,8 +180,10 @@ class SiderDemo extends Component {
 					style={{ position: 'fixed', height: '100vh', overflow: 'hidden', }}>
 
 					{!this.state.collapsed ? <div className="logo"> React APP </div> : <div style={{ color: 'white', textAlign: 'center', padding: '10px 0px', transition: 'all .2' }}>LLQ</div>}
-					<Menu theme="dark" mode="inline" >
-						<Menu.Item key="2" icon={<VideoCameraOutlined />}>
+					<Menu theme="dark" mode="inline" items={this.items} onClick={this.handleMenuClick}>
+
+
+						{/* <Menu.Item key="2" icon={<VideoCameraOutlined />}>
 							<a href="/">首页</a>
 						</Menu.Item>
 						<Menu.Item key="1" icon={<UserOutlined />} >
@@ -80,7 +218,8 @@ class SiderDemo extends Component {
 						</Menu.Item>
 						<Menu.Item key="12" icon={<UserOutlined />} >
 							<a href="/player">Player</a>
-						</Menu.Item>
+						</Menu.Item> */}
+
 					</Menu>
 				</Sider>
 				<Layout className="site-layout" style={{ marginLeft: !this.state.collapsed ? '200px' : '80px', transition: 'all .2s' }}>

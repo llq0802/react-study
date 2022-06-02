@@ -1,7 +1,7 @@
 .wrapper-box {
-  width: 300px;
-  height: 160px;
-  border: 1px solid black;
+  width: 600px;
+  height: 200px;
+  border: 1px solid rgb(191, 47, 47);
   margin: 200px 300px;
   position: relative;
   overflow: hidden;
@@ -14,7 +14,8 @@
 }
 
 .row {
-  height: 20px;
-  margin: 5px auto;
+  // height: 20px;
+  margin: 0 auto;
+  padding: 20px;
   border: 1px solid red;
 }
