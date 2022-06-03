@@ -1,7 +1,7 @@
 import React, { useMemo, key, FC, Component, useEffect, useState, createContext, useContext, useRef, forwardRef, useImperativeHandle } from 'react'
 import { Button } from 'antd'
 import Child from './Child'
-import Marquee from '../../components/Marquee/Marquee.tsx'
+import Marquee from '../../components/Marquee/Marquee.jsx'
 // const CountContext = createContext([{ age: 20 }])
 // export default function A(props) {
 //   let [count, setCount] = useState(77)

@@ -26,7 +26,7 @@ export default class App extends Component {
 		return (
 			<>
 				<Switch>
-					<Route path="/login" component={Login} />
+					<Route path="/login" exact component={Login} />
 					<Route path="/" component={Admin} />
 
 

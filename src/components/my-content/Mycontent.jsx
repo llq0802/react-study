@@ -14,6 +14,7 @@ import Check from '../../pages/Check/index.jsx'
 import TestHook from '../../pages/TestHook/index.jsx'
 import UploadFile from '../../pages/UploadFile/index.jsx'
 import Player from '../../pages/Player/index.jsx'
+import Canvas from '../../pages/Canvas/index.jsx'
 
 
 export default function Mycontent() {
@@ -25,6 +26,7 @@ export default function Mycontent() {
 
         <Route path="/" exact component={Home}></Route>
         <Route path="/tables" component={Tables}></Route>
+        <Route path="/canvas" component={Canvas}></Route>
         <Route path="/upload" component={Upload}></Route>
         <Route path="/file" component={File}></Route>
         <Route path="/echarts" component={Echarts}></Route>

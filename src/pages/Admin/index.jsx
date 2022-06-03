@@ -32,13 +32,34 @@ class SiderDemo extends Component {
 	items = [
 		{
 			label: (
-				<Link to="/" >
+				<span>
 					首页
-				</Link>
+				</span>
 
 			),
 			key: '1',
 			icon: <VideoCameraOutlined />,
+			children: [
+
+
+				{
+					key: 'submenu-item-1', label: (
+						<Link to="/" >
+							首页
+						</Link>
+					),
+
+				},
+				{
+					key: 'submenu-item-2', label: (
+						<Link to="/canvas" >
+							canvas
+						</Link>
+					),
+
+				}
+
+			],
 
 		},
 		{
@@ -169,7 +190,7 @@ class SiderDemo extends Component {
 	};
 	handleMenuClick = ({ key, keyPath, domEvent }) => {
 
-		console.log(key, keyPath);
+		// console.log(key, keyPath);
 	}
 
 	render() {
