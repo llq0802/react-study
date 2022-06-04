@@ -46,7 +46,7 @@ const Index = () => {
         }))
       );
     }
-    setValue(checkedValues);
+    // setValue(checkedValues);
   }, []);
 
   const onChange = (checkedValues: CheckboxValueType[]) => {
@@ -103,7 +103,11 @@ const Index = () => {
       </Button>
       <br />
       <br />
-      <Checkbox.Group options={list} onChange={onChange} value={value} />
+      <br />
+      <br />
+      <br />
+      <div> 多选框互斥操作</div>
+      <Checkbox.Group options={list} onChange={onChange} defaultValue={checkedValues} />
 
       <Drawer title="DrawCanvas" destroyOnClose onClose={onClose} visible={visible} width={1300}>
         <DrawCanvas imgUrl="/img.png" />
