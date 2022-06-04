@@ -1,23 +1,26 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Row, Col, Space, Checkbox, Button, Select, Spin, message } from 'antd';
+import { useState, useEffect, useRef, MouseEvent, FC } from 'react';
+import { Space, Button, Select, Spin, message } from 'antd';
+import type { ModeType, Point, RectType, TextPoint } from './data.d';
 
 const { Option } = Select;
+
+const PI: number = 2 * Math.PI;
+
 let moveFlag = false,
-  ctx = null,
-  isClick = false,
-  isDraw = false,
-  startX = 0,
-  startY = 0,
-  boxId = 0,
-  pointCount = 1,
-  PI = 2 * Math.PI,
-  mode = 'rect',
-  lastCanvasInfo = null,
-  pointList = [],
-  stack = [],
-  curPoint = [],
-  drawHistory = [],
-  hadPointList = [
+  ctx: CanvasRenderingContext2D,
+  lastCanvasInfo: ImageData,
+  isClick: boolean = false,
+  isDraw: boolean = false,
+  startX: number = 0,
+  startY: number = 0,
+  boxId: number = 0,
+  pointCount: number = 1,
+  mode: ModeType = 'rect',
+  pointList: RectType[] = [],
+  pointStack: Point[] = [],
+  curPoint: RectType[] = [],
+  canvasInfoHistory = [],
+  hadPointList: RectType[] = [
     {
       boxId: 1,
       x1: 64,
@@ -58,7 +61,9 @@ let moveFlag = false,
       textY: 165,
     },
   ];
-function resolveDraw(curPointObj) {
+
+// 回显绘制
+function resolveDraw(curPointObj: RectType): void {
   const { x1, y1, x2, y2, x3, y3, x4, y4 } = curPointObj;
   ctx.lineJoin = 'round';
   ctx.beginPath();
@@ -68,17 +73,16 @@ function resolveDraw(curPointObj) {
   ctx.lineTo(x4, y4);
   ctx.closePath();
 }
-
 // 处理描点模式的4个点
-const arr2Point = () => {
-  let x1 = stack[0].x,
-    y1 = stack[0].y,
-    x2 = stack[1].x,
-    y2 = stack[1].y,
-    x3 = stack[2].x,
-    y3 = stack[2].y,
-    x4 = stack[3].x,
-    y4 = stack[3].y;
+const pointArr2PointObj = (): RectType => {
+  let x1 = pointStack[0].x,
+    y1 = pointStack[0].y,
+    x2 = pointStack[1].x,
+    y2 = pointStack[1].y,
+    x3 = pointStack[2].x,
+    y3 = pointStack[2].y,
+    x4 = pointStack[3].x,
+    y4 = pointStack[3].y;
   return {
     boxId,
     x1,
@@ -94,7 +98,7 @@ const arr2Point = () => {
   };
 };
 // 处理矩形模式的4个点
-function getPointList(e, textPoint) {
+function getPointList(e: globalThis.MouseEvent, textPoint: TextPoint): void {
   const { offsetX, offsetY } = e;
   const { textX, textY } = textPoint;
   let w = Math.abs(e.offsetX - startX),
@@ -151,7 +155,7 @@ function getPointList(e, textPoint) {
   }
 }
 // 绘制文字
-function drawText(e) {
+function drawText(e: globalThis.MouseEvent): TextPoint {
   let w = e.offsetX - startX,
     h = e.offsetY - startY;
   ctx.save();
@@ -170,7 +174,7 @@ function drawText(e) {
 }
 
 //矩形模式绘制矩形
-const drawRect = (e) => {
+const drawRectByMove = (e: globalThis.MouseEvent): void => {
   if (moveFlag) {
     ctx.putImageData(lastCanvasInfo, 0, 0);
     let w = e.offsetX - startX,
@@ -186,20 +190,23 @@ const drawRect = (e) => {
   }
 };
 
+interface PropsType {
+  imgUrl: string;
+}
 /**
  *组件
  * @return {*}
  */
-const Index = ({ imgUrl }) => {
-  const ref = useRef(null);
-  const [cursorType, setCursorType] = useState('default');
-  const [loading, setLoading] = useState(false);
+const Index: FC<PropsType> = ({ imgUrl }) => {
+  const ref = useRef<HTMLCanvasElement>(null);
+  const [cursorType, setCursorType] = useState<string>('default');
+  const [loading, setLoading] = useState<boolean>(false);
 
   // 初始化
   useEffect(() => {
     setLoading(true);
     const canvas = ref.current;
-    ctx = canvas.getContext('2d');
+    ctx = canvas!.getContext('2d') as CanvasRenderingContext2D;
     // ctx.globalAlpha = 0.9;
     canvasInit();
     setTimeout(() => {
@@ -207,30 +214,32 @@ const Index = ({ imgUrl }) => {
     }, 500);
     return () => {
       moveFlag = false;
-      ctx = null;
+      ctx = null as unknown as CanvasRenderingContext2D;
       isClick = false;
       isDraw = false;
       startX = 0;
       startY = 0;
       boxId = 0;
-      lastCanvasInfo = null;
+      pointCount = 1;
+      lastCanvasInfo = null as unknown as ImageData;
       pointList = [];
       curPoint = [];
-      hadPointList = [];
+      // hadPointList = [];
     };
   }, [imgUrl]);
+
   // 图片映射画布
-  const canvasInit = async (isReset) => {
+  const canvasInit = async (isReset: boolean = false): Promise<void> => {
     const canvas = ref.current;
-    const img = await imgLoaded();
-    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    const img: HTMLImageElement = await createImage();
+    ctx.drawImage(img, 0, 0, canvas!.width, canvas!.height);
     // 初始化时
     if (!isReset) {
       // 有数据时回显
       if (hadPointList.length) {
         boxId = hadPointList.length;
         for (let i = 0; i < hadPointList.length; i++) {
-          const items = hadPointList[i];
+          const items: RectType = hadPointList[i];
           pointList.push(items);
           resolveDraw(items);
           ctx.save();
@@ -248,74 +257,69 @@ const Index = ({ imgUrl }) => {
         pointList = [];
         boxId = 0;
       }
-      lastCanvasInfo = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      lastCanvasInfo = ctx.getImageData(0, 0, canvas!.width, canvas!.height);
     } else {
       // 重置时
       pointList = [];
       boxId = 0;
-      lastCanvasInfo = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      lastCanvasInfo = ctx.getImageData(0, 0, canvas!.width, canvas!.height);
     }
   };
   // 创建img标签
-  const imgLoaded = () => {
-    const img = new Image();
+  const createImage = (): Promise<HTMLImageElement> => {
+    const img: HTMLImageElement = new Image();
     img.src = imgUrl;
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       img.onload = function () {
         resolve(img);
       };
     });
   };
-
   // 鼠标按下
-  const onMouseDown = (e) => {
+  const handleCanvasMouseDown = (ev: MouseEvent<HTMLCanvasElement>): void => {
     if (mode === 'rect' && isDraw) {
-      e.preventDefault();
-      e = e.nativeEvent;
+      ev.preventDefault();
+      const e = ev.nativeEvent;
       moveFlag = true;
       startX = e.offsetX; // 鼠标落下时的X
       startY = e.offsetY; // 鼠标落下时的Y
     }
-
-    // console.log('onMouseDown', e.offsetX, e.offsetY);
   };
   // 鼠标移动
-  const onMouseMove = (e) => {
+  const handleCanvasMouseMove = (ev: MouseEvent<HTMLCanvasElement>): void => {
     if (mode === 'rect' && isDraw) {
-      e.preventDefault();
-      e = e.nativeEvent;
+      ev.preventDefault();
+      const e = ev.nativeEvent;
       if (Math.abs(e.offsetX - startX) < 10 || Math.abs(e.offsetY - startY) < 10) return; //处理误差
       if (!moveFlag) return;
-      drawRect(e);
+      drawRectByMove(e);
     }
-    // console.log('onMouseMove', e);
   };
   // 鼠标松开
-  const onMouseUp = (e) => {
+  const handleCanvasMouseUp = (ev: MouseEvent<HTMLCanvasElement>): void => {
     if (mode === 'rect' && isDraw) {
-      e.preventDefault();
-      e = e.nativeEvent;
-      moveFlag = false;
+      ev.preventDefault();
+      const e: globalThis.MouseEvent = ev.nativeEvent;
       if (Math.abs(e.offsetX - startX) < 10 || Math.abs(e.offsetY - startY) < 10) return; //处理误差
+      moveFlag = false;
       const canvas = ref.current;
       const textPoint = drawText(e);
-      lastCanvasInfo = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      lastCanvasInfo = ctx.getImageData(0, 0, canvas!.width, canvas!.height);
       boxId++;
       getPointList(e, textPoint);
     }
-    // console.log('onMouseUp', e.offsetX, e.offsetY);
   };
-
   // 鼠标点击
-  const onClick = (e) => {
-    e = e.nativeEvent;
+  const handleCanvasClick = (ev: MouseEvent<HTMLCanvasElement>): void => {
+    const e = ev.nativeEvent;
     let x = e.offsetX,
       y = e.offsetY;
+    // 描点模式
     if (mode === 'point' && isDraw) {
-      console.log('描点');
-      getPointByClick(x, y);
+      drawRectByClick(x, y);
       return;
     }
+    // 选择围栏
     if (!isClick) return;
     if (!pointList.length) return;
     curPoint = [];
@@ -323,8 +327,8 @@ const Index = ({ imgUrl }) => {
     for (let i = 0; i < pointList.length; i++) {
       const items = pointList[i];
       resolveDraw(items);
-      if (ctx.isPointInPath(x, y)) {
-        ctx.save();
+      if (ctx!.isPointInPath(x, y)) {
+        ctx!.save();
         ctx.lineWidth = 8;
         ctx.shadowColor = 'rgba(0,0,0,0.5)';
         ctx.shadowOffsetX = 4;
@@ -336,7 +340,6 @@ const Index = ({ imgUrl }) => {
         ctx.textAlign = 'center';
         ctx.fillText(`${i + 1}-号`, items.textX, items.textY);
         curPoint.push(items);
-        console.log('curPoint', curPoint);
       } else {
         ctx.save();
         ctx.strokeStyle = 'red';
@@ -345,22 +348,25 @@ const Index = ({ imgUrl }) => {
       ctx.stroke();
       ctx.restore();
     }
+    console.log('curPoint', curPoint);
   };
   // 重置画布
-  const handleClear = () => {
+  const handleCanvasClear = async (): Promise<void> => {
     const canvas = ref.current;
-    canvas.width = canvas?.width;
-    canvas.height = canvas?.height;
+    canvas!.width = canvas?.width as number;
+    canvas!.height = canvas?.height as number;
     // ctx.clearRect(0, 0, canvas.width, canvas.height);
     setCursorType('default');
     isClick = false;
     isDraw = false;
-    canvasInit(true);
+    // 重置初始化
+    await canvasInit(true);
+    message.success('重置画布成功');
   };
-
-  // 描点模式绘制
-  const getPointByClick = (x, y) => {
+  // 描点模式绘制矩形
+  const drawRectByClick = (x: number, y: number): void => {
     ctx.lineJoin = 'round';
+    ctx.save();
     ctx.strokeStyle = 'red';
     ctx.lineWidth = 3;
     if (pointCount === 1) {
@@ -370,11 +376,8 @@ const Index = ({ imgUrl }) => {
       ctx?.arc(x, y, 2, 0, PI);
       ctx?.moveTo(x, y);
       ctx?.stroke();
+      pointStack.push({ x, y });
       pointCount++;
-      stack.push({
-        x,
-        y,
-      });
       return;
     }
     if (pointCount === 4) {
@@ -385,28 +388,22 @@ const Index = ({ imgUrl }) => {
       ctx.fillStyle = '#1890ff';
       ctx.font = 'bold 24px sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText(`${boxId + 1}-号`, stack[0].x, stack[0].y);
-      stack.push({
-        x,
-        y,
-      });
+      ctx.fillText(`${boxId + 1}-号`, pointStack[0].x, pointStack[0].y);
+      ctx.restore();
+      pointStack.push({ x, y });
       boxId++;
-      console.log(arr2Point());
-      pointList.push(arr2Point());
+      pointList.push(pointArr2PointObj());
       pointCount = 1;
-      stack = [];
+      pointStack = [];
       const canvas = ref.current;
-      lastCanvasInfo = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      lastCanvasInfo = ctx.getImageData(0, 0, canvas!.width, canvas!.height);
       return;
     }
     // 第2,3个点
     ctx?.arc(x, y, 2, 0, PI);
     ctx?.lineTo(x, y);
     ctx?.stroke();
-    stack.push({
-      x,
-      y,
-    });
+    pointStack.push({ x, y });
     pointCount++;
   };
 
@@ -418,7 +415,7 @@ const Index = ({ imgUrl }) => {
             <Select
               defaultValue={mode}
               style={{ width: 120 }}
-              onChange={(val) => {
+              onChange={(val: ModeType) => {
                 mode = val;
                 if (isClick) return;
                 if (mode === 'point') {
@@ -432,13 +429,18 @@ const Index = ({ imgUrl }) => {
               <Option value="point">描点模式</Option>
             </Select>
           </span>
-          <Button type="primary" onClick={handleClear}>
+          <Button type="primary" onClick={handleCanvasClear}>
             重置画布
           </Button>
           <Button
             type="primary"
             onClick={() => {
-              if (!isDraw) message.info('开始绘制');
+              if (isDraw) {
+                message.error('当前已是绘制围栏状态');
+                return;
+              }
+              if (!isDraw) message.info('当前可绘制围栏');
+              ctx.putImageData(lastCanvasInfo, 0, 0); // 恢复画布信息
               isDraw = true;
               isClick = false;
               console.log(mode);
@@ -454,7 +456,15 @@ const Index = ({ imgUrl }) => {
           <Button
             type="primary"
             onClick={() => {
-              if (!isClick) message.info('选择围栏');
+              if (!pointList.length) {
+                message.error('当前没有围栏可选择');
+                return;
+              }
+              if (isClick) {
+                message.error('当前已是选择围栏状态');
+                return;
+              }
+              if (!isClick) message.info('当前可选择围栏');
               isClick = true;
               isDraw = false;
               setCursorType('pointer');
@@ -474,11 +484,14 @@ const Index = ({ imgUrl }) => {
           cursor: cursorType,
           // background: "url('/img.png')",
         }}
-        onClick={onClick}
-        onMouseUp={onMouseUp}
-        onMouseDown={onMouseDown}
-        onMouseMove={onMouseMove}
-      />
+        draggable={false}
+        onClick={handleCanvasClick}
+        onMouseUp={handleCanvasMouseUp}
+        onMouseDown={handleCanvasMouseDown}
+        onMouseMove={handleCanvasMouseMove}
+      >
+        你的浏览器不支持Canvas
+      </canvas>
     </Spin>
   );
 };
