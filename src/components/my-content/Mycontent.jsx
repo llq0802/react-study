@@ -1,21 +1,20 @@
-import React from 'react'
-import { Route, Switch, Redirect } from 'react-router-dom'
-import Tables from '../../pages/Admin/Table'
-import Home from '../../pages/Admin/home/Home.jsx'
-import Upload from '../../pages/Admin/upload/Upload.jsx'
-import File from '../../pages/Admin/file/File.jsx'
-import Echarts from '../../pages/Admin/echarts/Echarts.jsx'
-import Hook from '../../pages/Hooks/Usecontext.jsx'
-import Tree from '../../pages/Tree/Tree.jsx'
-import Form from '../../pages/Form/index.jsx'
-import Qrcode from '../../pages/Qrcode/index.jsx'
-import Roll from '../../pages/Roll/index.jsx'
-import Check from '../../pages/Check/index.jsx'
-import TestHook from '../../pages/TestHook/index.jsx'
-import UploadFile from '../../pages/UploadFile/index.jsx'
-import Player from '../../pages/Player/index.jsx'
-import Canvas from '../../pages/Canvas/index.jsx'
-
+import React from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import Tables from '../../pages/Admin/Table';
+import Home from '../../pages/Admin/home/Home.jsx';
+import Upload from '../../pages/Admin/upload/Upload.jsx';
+import File from '../../pages/Admin/file/File.jsx';
+import Echarts from '../../pages/Admin/echarts/Echarts.jsx';
+import Hook from '../../pages/Hooks/Usecontext.jsx';
+import Tree from '../../pages/Tree/Tree.jsx';
+import Form from '../../pages/Form/index.jsx';
+import Qrcode from '../../pages/Qrcode/index.jsx';
+import Roll from '../../pages/Roll/index.jsx';
+import Check from '../../pages/Check/index.jsx';
+import TestHook from '../../pages/TestHook/index.jsx';
+import UploadFile from '../../pages/UploadFile/index.jsx';
+import Player from '../../pages/Player/index.jsx';
+import Canvas from '../../pages/Canvas/index.tsx';
 
 export default function Mycontent() {
   return (
@@ -41,5 +40,5 @@ export default function Mycontent() {
         <Route path="/player" component={Player}></Route>
       </Switch>
     </>
-  )
+  );
 }

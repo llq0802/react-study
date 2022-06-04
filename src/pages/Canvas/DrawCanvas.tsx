@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, MouseEvent, FC } from 'react';
 import { Space, Button, Select, Spin, message } from 'antd';
 import type { ModeType, Point, RectType, TextPoint } from './data.d';
+import MyRadio from './Radio';
 
 const { Option } = Select;
 
@@ -18,7 +19,7 @@ let moveFlag = false,
   mode: ModeType = 'rect',
   pointList: RectType[] = [],
   pointStack: Point[] = [],
-  curPoint: RectType[] = [],
+  // curPoint: RectType[] = [],
   canvasInfoHistory = [],
   hadPointList: RectType[] = [
     {
@@ -199,7 +200,9 @@ interface PropsType {
  */
 const Index: FC<PropsType> = ({ imgUrl }) => {
   const ref = useRef<HTMLCanvasElement>(null);
+  const myRadioRef = useRef<any>(null);
   const [cursorType, setCursorType] = useState<string>('default');
+  const [curPoint, setCurPoint] = useState<RectType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
   // 初始化
@@ -223,7 +226,7 @@ const Index: FC<PropsType> = ({ imgUrl }) => {
       pointCount = 1;
       lastCanvasInfo = null as unknown as ImageData;
       pointList = [];
-      curPoint = [];
+      // curPoint = [];
       // hadPointList = [];
     };
   }, [imgUrl]);
@@ -322,7 +325,8 @@ const Index: FC<PropsType> = ({ imgUrl }) => {
     // 选择围栏
     if (!isClick) return;
     if (!pointList.length) return;
-    curPoint = [];
+    // curPoint = [];
+    const curPoint: RectType[] = [];
     ctx.putImageData(lastCanvasInfo, 0, 0); // 每次绘制都要回到初始状态
     for (let i = 0; i < pointList.length; i++) {
       const items = pointList[i];
@@ -348,10 +352,13 @@ const Index: FC<PropsType> = ({ imgUrl }) => {
       ctx.stroke();
       ctx.restore();
     }
-    console.log('curPoint', curPoint);
+    setCurPoint([...curPoint]);
+    // console.log('curPoint', curPoint);
   };
+
   // 重置画布
   const handleCanvasClear = async (): Promise<void> => {
+    myRadioRef.current?.setHadPointList();
     const canvas = ref.current;
     canvas!.width = canvas?.width as number;
     canvas!.height = canvas?.height as number;
@@ -474,7 +481,6 @@ const Index: FC<PropsType> = ({ imgUrl }) => {
           </Button>
         </Space>
       </div>
-
       <canvas
         ref={ref}
         width={800}
@@ -492,6 +498,15 @@ const Index: FC<PropsType> = ({ imgUrl }) => {
       >
         你的浏览器不支持Canvas
       </canvas>
+
+      <MyRadio
+        ref={myRadioRef}
+        curPoint={curPoint}
+        putImageData={() => {
+          ctx.putImageData(lastCanvasInfo, 0, 0);
+          setCurPoint([]);
+        }}
+      />
     </Spin>
   );
 };
