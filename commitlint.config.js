@@ -24,15 +24,15 @@ module.exports = {
   },
 };
 
-  // "husky": {
-  //   "hooks": {
-  //     "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS",
-  //     "pre-commit": "lint-staged"
-  //   }
-  // },
-  // "lint-staged": {
-  //   "src/**/*.{js,vue,jsx,tsx}": [
-  //     "eslint --fix --ext .js,.vue,j.sx,.tsx",
-  //     "git add"
-  //   ]
-  // }
+// "husky": {
+//   "hooks": {
+//     "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS",
+//     "pre-commit": "lint-staged"
+//   }
+// },
+// "lint-staged": {
+//   "src/**/*.{js,vue,jsx,tsx}": [
+//     "eslint --fix --ext .js,.vue,j.sx,.tsx",
+//     "git add"
+//   ]
+// }
