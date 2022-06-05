@@ -2,11 +2,11 @@ import React, { Component, useState, useEffect, useRef } from 'react';
 import { TreeSelect, Row, Col, Space, Divider, Checkbox, Button, Select, Drawer } from 'antd';
 import type { CheckboxValueType } from 'antd/es/checkbox/Group';
 import DrawCanvas from './DrawCanvas';
-interface Options {
+type Options = {
   label: string;
   value: string;
   disabled?: boolean;
-}
+};
 const optionsWithDisabled: Array<Options> = [
   { label: '111', value: '1' },
   { label: '222', value: '2' },

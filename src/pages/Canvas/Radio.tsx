@@ -8,12 +8,12 @@ type RadioOption = {
   value: string | number;
   disabled?: boolean;
 };
-const list: RadioOption[] = [
+const list = [
   { label: '设备 A', value: 1 },
   { label: '设备 B', value: 2 },
   { label: '设备 C', value: 3 },
   { label: '设备 D', value: 4 },
-];
+] as const;
 interface PropsType {
   curPoint: RectType[];
   putImageData?(): void;
@@ -78,11 +78,12 @@ const App: ForwardRefRenderFunction<RefType, PropsType> = ({ curPoint, putImageD
         </Space>
       </Radio.Group>
       {curPoint.length > 0 && (
-        <Button type="primary" style={{ margin: '20px 0px' }} onClick={handleBtnClick}>
+        <Button type="primary" onClick={handleBtnClick}>
           确定
         </Button>
       )}
-      <div>
+
+      <>
         {useMemo(
           () =>
             hadPointList.map((item) => (
@@ -92,7 +93,7 @@ const App: ForwardRefRenderFunction<RefType, PropsType> = ({ curPoint, putImageD
             )),
           [hadPointList]
         )}
-      </div>
+      </>
     </>
   );
 };

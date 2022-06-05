@@ -1,6 +1,6 @@
-export type ModeType = 'rect' | 'point';
+export declare type ModeType = 'rect' | 'point';
 
-export interface RectType {
+export declare type RectType = {
   boxId: number;
   x1: number;
   y1: number;
@@ -12,12 +12,10 @@ export interface RectType {
   y4: number;
   textX: number;
   textY: number;
-}
-export interface Point {
+};
+export declare type Point = {
   x: number;
   y: number;
-}
-export interface TextPoint {
-  textX: number;
-  textY: number;
-}
+};
+
+export declare type TextPoint = Pick<RectType, 'textX' | 'textY'>;

@@ -1,12 +1,11 @@
 import { useState, useEffect, useRef, MouseEvent, FC } from 'react';
-import { Space, Button, Select, Spin, message } from 'antd';
+import { Space, Button, Select, Spin, message, Popconfirm } from 'antd';
 import type { ModeType, Point, RectType, TextPoint } from './data.d';
 import MyRadio from './Radio';
 
 const { Option } = Select;
 
 const PI: number = 2 * Math.PI;
-
 let moveFlag = false,
   ctx: CanvasRenderingContext2D,
   lastCanvasInfo: ImageData,
@@ -303,8 +302,8 @@ const Index: FC<PropsType> = ({ imgUrl }) => {
     if (mode === 'rect' && isDraw) {
       ev.preventDefault();
       const e: globalThis.MouseEvent = ev.nativeEvent;
-      if (Math.abs(e.offsetX - startX) < 10 || Math.abs(e.offsetY - startY) < 10) return; //处理误差
       moveFlag = false;
+      if (Math.abs(e.offsetX - startX) < 10 || Math.abs(e.offsetY - startY) < 10) return; //处理误差
       const canvas = ref.current;
       const textPoint = drawText(e);
       lastCanvasInfo = ctx.getImageData(0, 0, canvas!.width, canvas!.height);
@@ -436,9 +435,16 @@ const Index: FC<PropsType> = ({ imgUrl }) => {
               <Option value="point">描点模式</Option>
             </Select>
           </span>
-          <Button type="primary" onClick={handleCanvasClear}>
-            重置画布
-          </Button>
+
+          <Popconfirm
+            title="围栏及关联数据将被清空,确认吗?"
+            okText="确定"
+            cancelText="取消"
+            onConfirm={handleCanvasClear}
+          >
+            <Button type="primary">重置画布</Button>
+          </Popconfirm>
+
           <Button
             type="primary"
             onClick={() => {
