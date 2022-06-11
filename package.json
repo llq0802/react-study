@@ -40,6 +40,7 @@
   },
   "scripts": {
     "prepare": "husky install",
+    "lint-staged": "lint-staged",
     "postinstall": "husky install",
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -70,9 +71,7 @@
     "husky": "^8.0.1",
     "sass": "^1.51.0"
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS"
-    }
+  "lint-staged": {
+    "src/**/*.{js,ts,vue}": []
   }
 }
