@@ -878,45 +878,69 @@ _/
 // )
 // }
 
+"@alitajs/keep-alive": "^2.8.36",
+"@ant-design/charts": "^1.1.20",
+"@ant-design/icons": "^4.3.0",
+"@ant-design/pro-descriptions": "^1.10.45",
+"@antv/data-set": "^0.11.8",
+"@antv/x6": "^1.18.1",
+"@antv/x6-react-components": "^1.1.7",
+"@ccs-design/rc-pro": "1.0.6-beta-7",
+"ahooks": "^2.9.6",
+"antd": "^4.16.13",
+"bizcharts": "^4.0.17",
+"braft-editor": "^2.2.10",
+"classnames": "^2.2.6",
+"draftjs-to-html": "^0.8.4",
+"echarts": "^5.3.1",
+"echarts-for-react": "^3.0.2",
+"html-to-draftjs": "^1.4.0",
+"immutability-helper": "^3.1.1",
+"insert-css": "^2.0.0",
+"js-base64": "^2.5.1",
+"jsencrypt": "^3.0.0-rc.1",
+"localforage": "^1.9.0",
+"lodash": "^4.17.11",
+"lunar-calendar": "^0.1.4",
+"moment": "^2.25.3",
+"nprogress": "^0.2.0",
+"qs": "^6.9.0",
+"rc-animate": "^3.1.1",
+"react": "^16.8.6",
+"react-container-query": "^0.11.0",
+"react-contextmenu": "^2.13.0",
+"react-dom": "^16.8.6",
+"react-draft-wysiwyg": "^1.13.2",
+"react-full-screen": "^1.1.0",
+"react-media-hook2": "^1.1.2",
+"react-player": "^2.9.0",
+"react-text-loop": "^2.3.0",
+"umi": "3.5.16",
+"umi-request": "^1.2.9",
+"warning": "^4.0.3"
 
+    /**
 
-  "@alitajs/keep-alive": "^2.8.36",
-    "@ant-design/charts": "^1.1.20",
-    "@ant-design/icons": "^4.3.0",
-    "@ant-design/pro-descriptions": "^1.10.45",
-    "@antv/data-set": "^0.11.8",
-    "@antv/x6": "^1.18.1",
-    "@antv/x6-react-components": "^1.1.7",
-    "@ccs-design/rc-pro": "1.0.6-beta-7",
-    "ahooks": "^2.9.6",
-    "antd": "^4.16.13",
-    "bizcharts": "^4.0.17",
-    "braft-editor": "^2.2.10",
-    "classnames": "^2.2.6",
-    "draftjs-to-html": "^0.8.4",
-    "echarts": "^5.3.1",
-    "echarts-for-react": "^3.0.2",
-    "html-to-draftjs": "^1.4.0",
-    "immutability-helper": "^3.1.1",
-    "insert-css": "^2.0.0",
-    "js-base64": "^2.5.1",
-    "jsencrypt": "^3.0.0-rc.1",
-    "localforage": "^1.9.0",
-    "lodash": "^4.17.11",
-    "lunar-calendar": "^0.1.4",
-    "moment": "^2.25.3",
-    "nprogress": "^0.2.0",
-    "qs": "^6.9.0",
-    "rc-animate": "^3.1.1",
-    "react": "^16.8.6",
-    "react-container-query": "^0.11.0",
-    "react-contextmenu": "^2.13.0",
-    "react-dom": "^16.8.6",
-    "react-draft-wysiwyg": "^1.13.2",
-    "react-full-screen": "^1.1.0",
-    "react-media-hook2": "^1.1.2",
-    "react-player": "^2.9.0",
-    "react-text-loop": "^2.3.0",
-    "umi": "3.5.16",
-    "umi-request": "^1.2.9",
-    "warning": "^4.0.3"
+- rule 由 key 和配置数组组成
+- 如：'key:[0, 'always', 72]'
+- 数组中第一位为 level，可选 0,1,2，0 为 disable，1 为 warning，2 为 error，
+-         第二位为是否应用，可选always|never，
+-         第三位该rule的值
+-
+- 提交信息可自定义规范
+- feat：新功能（feature）
+  fix：修补 bug
+  docs：文档（documentation）
+  style： 格式（不影响代码运行的变动）
+  refactor：重构（即不是新增功能，也不是修改 bug 的代码变动）
+  test：增加测试
+  chore：构建过程或辅助工具的变动
+- \*\*/
+  module.exports = {
+  extends: ['@commitlint/config-conventional'],
+  rules: {
+  'type-enum': [2, 'always', [
+  "feat", "fix", "docs", "style", "refactor", "test", "revert"
+  ]]
+  }
+  }

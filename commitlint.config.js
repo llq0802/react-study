@@ -1,7 +1,7 @@
 /**
  *  rule由key和配置数组组成
  *  如：'key:[0, 'always', 72]'
- *    数组中第一位为level，可选0,1,2 -- 0为disable，1为warning，2为error，
+ *    数组中第一位为level，可选0,1,2，0为disable，1为warning，2为error，
  *         第二位为是否应用，可选always|never，
  *         第三位该rule的值
  *
@@ -17,21 +17,6 @@
 module.exports = {
   extends: ['@commitlint/config-conventional'],
   rules: {
-    'type-enum': [2, 'always', ['feat', 'fix', 'docs', 'style', 'refactor', 'test', 'chore', 'revert']],
-    'subject-full-stop': [0, 'never'],
-    'subject-case': [0, 'never'],
+    'type-enum': [2, 'always', ['feat', 'fix', 'docs', 'style', 'refactor', 'test', 'revert']],
   },
 };
-
-// "husky": {
-//   "hooks": {
-//     "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS",
-//     "pre-commit": "lint-staged"
-//   }
-// },
-// "lint-staged": {
-//   "src/**/*.{js,vue,jsx,tsx}": [
-//     "eslint --fix --ext .js,.vue,j.sx,.tsx",
-//     "git add"
-//   ]
-// }

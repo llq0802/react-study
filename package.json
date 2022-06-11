@@ -13,7 +13,6 @@
     "draftjs-to-html": "^0.9.1",
     "echarts": "^5.2.2",
     "html-to-draftjs": "^1.5.0",
-    "husky": "^8.0.1",
     "lunar-calendar": "^0.1.4",
     "qrcode.react": "^3.0.0",
     "rc-virtual-list": "^3.4.6",
@@ -40,21 +39,12 @@
     "xgplayer-flv": "^2.5.1"
   },
   "scripts": {
-    "commitmsg": "commitlint -e $GIT_PARAMS",
+    "prepare": "husky install",
+    "postinstall": "husky install",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
-  "config": {
-    "commitizen": {
-      "path": "cz-customizable"
-    }
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run lint"
-    }
   },
   "eslintConfig": {
     "extends": [
@@ -77,6 +67,12 @@
   "devDependencies": {
     "@commitlint/cli": "^17.0.2",
     "@commitlint/config-conventional": "^17.0.2",
+    "husky": "^8.0.1",
     "sass": "^1.51.0"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -e $HUSKY_GIT_PARAMS"
+    }
   }
 }
