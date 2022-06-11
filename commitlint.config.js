@@ -14,13 +14,12 @@
     test：增加测试
     chore：构建过程或辅助工具的变动
  * **/
-
 module.exports = {
   extends: ['@commitlint/config-conventional'],
   rules: {
     'type-enum': [2, 'always', ['feat', 'fix', 'docs', 'style', 'refactor', 'test', 'chore', 'revert']],
-    // 'subject-full-stop': [0, 'never'],
-    // 'subject-case': [0, 'never']
+    'subject-full-stop': [0, 'never'],
+    'subject-case': [0, 'never'],
   },
 };
 

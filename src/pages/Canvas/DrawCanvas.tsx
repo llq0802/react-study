@@ -33,6 +33,7 @@ let moveFlag = false,
       y4: 198,
       textX: 124.5,
       textY: 124,
+      // "gearType":
     },
     {
       boxId: 2,
@@ -83,19 +84,7 @@ const pointArr2PointObj = (): RectType => {
     y3 = pointStack[2].y,
     x4 = pointStack[3].x,
     y4 = pointStack[3].y;
-  return {
-    boxId,
-    x1,
-    y1,
-    x2,
-    y2,
-    x3,
-    y3,
-    x4,
-    y4,
-    textX: x1,
-    textY: y1,
-  };
+  return { boxId, x1, y1, x2, y2, x3, y3, x4, y4, textX: x1, textY: y1 };
 };
 // 处理矩形模式的4个点
 function getPointList(e: globalThis.MouseEvent, textPoint: TextPoint): void {
@@ -327,6 +316,9 @@ const Index: FC<PropsType> = ({ imgUrl }) => {
     // curPoint = [];
     const curPoint: RectType[] = [];
     ctx.putImageData(lastCanvasInfo, 0, 0); // 每次绘制都要回到初始状态
+    // const canvas = ref.current;
+    // ctx.clearRect(0, 0, canvas!.width, canvas!.height);
+
     for (let i = 0; i < pointList.length; i++) {
       const items = pointList[i];
       resolveDraw(items);
