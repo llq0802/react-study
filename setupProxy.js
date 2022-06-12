@@ -10,7 +10,7 @@
 /**
  *配置跨域代理的方法
  */
-//  在src目录下创建setupProxy.js
+//  在src目录下创建 setupProxy.js
 
 //   const proxy = require('http-proxy-middleware')
 //    module.exports = function(app) {
