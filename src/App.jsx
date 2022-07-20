@@ -14,48 +14,42 @@
 // import MyNavLink from './components/MyNavLink'
 // import store from './redux/store';
 // import { Button } from 'antd';
-import React, { Component, } from 'react'
-import { Route, Switch, Redirect } from 'react-router-dom'
-import Admin from './pages/Admin/index.jsx'
-import Login from './pages/Login/Login.jsx'
+import React, { Component } from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import Admin from './pages/Admin/index.jsx';
+import Login from './pages/Login/Login.jsx';
 
 // const Admin = () => (import('./pages/Admin/index.jsx'))
 // const Login = () => (import('./pages/Login/Login.jsx'))
 export default class App extends Component {
-	render() {
-		return (
-			<>
-				<Switch>
-					<Route path="/login" exact component={Login} />
-					<Route path="/" component={Admin} />
+  render() {
+    return (
+      <>
+        <Switch>
+          <Route path="/login" exact component={Login} />
+          <Route path="/" component={Admin} />
 
+          {/* <Redirect to='/'></Redirect> */}
 
-					{/* <Redirect to='/'></Redirect> */}
-
-					{/* <Route path='/'>
+          {/* <Route path='/'>
 						<Admin />
 					</Route> */}
 
-
-					{/* <Route path="/" render={(props) => {
+          {/* <Route path="/" render={(props) => {
 						return 1 ? <Admin /> : <Redirect to="/login" />
 					}} /> */}
-
-
-				</Switch>
-
-			</>
-		)
-	}
+        </Switch>
+      </>
+    );
+  }
 }
-
-
 
 /**
  * 路由权限
  */
 
-{/* <Provider store={store}>
+{
+  /* <Provider store={store}>
 	<BrowserRouter>
 	<Switch>
 	<Route path="/auth" component={UnauthorizedLayout} />
@@ -67,7 +61,8 @@ export default class App extends Component {
 
 	<Redirect to="/auth" />
 	</Switch>
-</Provider> */}
+</Provider> */
+}
 
 // AuthorizedRoute.js文件
 // render() {
@@ -101,10 +96,6 @@ export default class App extends Component {
 // 	/>
 // );
 
-
-
-
-
 // const Routers = routerList.map((item, index) => {
 // 	return <Route key={index} path={item.path} exact={item.exact} render={(props) => {
 // 		if (item.noLogin) { // 如果是不用登录就可访问的页面，直接返回
@@ -130,8 +121,6 @@ export default class App extends Component {
 // 	</BrowserRouter>
 // );
 
-
-
 //antd4 动态创建Icon图标
 // import React from "react";
 // import  * as Icon from '@ant-design/icons';
@@ -150,4 +139,3 @@ export default class App extends Component {
 //     </span>
 //   );
 // }
-
