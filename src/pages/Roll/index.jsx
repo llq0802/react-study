@@ -39,13 +39,14 @@ class Roll extends React.Component {
     const that = this;
     (function animloop() {
       that.Roll();
-      window.requestAnimationFrame(animloop);
+      that.timer = window.requestAnimationFrame(animloop);
     })();
   };
 
   // 关闭定时器
   stop = () => {
-    clearInterval(this.timer);
+    // clearInterval(this.timer);
+    window.cancelAnimationFrame(this.timer);
   };
 
   // 每次向上偏移0.5px，使用state储存偏移的次数

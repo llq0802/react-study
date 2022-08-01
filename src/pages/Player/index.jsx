@@ -27,13 +27,15 @@ export default function Index() {
 
         // url='http://ivi.bupt.edu.cn/hls/cctv9.m3u8'
         // url="http://sf1-cdn-tos.huoshanstatic.com/obj/media-fe/xgplayer_doc_video/flv/xgplayer-demo-720p.flv"
-        url="http://136.5.140.216:5018/pss/50010302031320000228_62a0686d60b27b2f60e05474.flv"
+        // url="http://136.5.140.216:5018/pss/50010302031320000228_62a0686d60b27b2f60e05474.flv"
+        // url="http://219.151.131.120:7998/play/50010302031320000229_9f13b78d39584be2b32231b3bda6dd3b.flv"
         width="100%"
         height="100%"
         controls
         playing
         light="/img.png"
         onReady={onReady}
+        muted
         config={{
           file: {
             attributes: {
@@ -44,6 +46,7 @@ export default function Index() {
               },
             },
             forceFLV: true,
+            forceVideo: true,
           },
         }}
       />

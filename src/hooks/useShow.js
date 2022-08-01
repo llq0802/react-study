@@ -7,15 +7,14 @@ import { useImperativeHandle, useRef } from 'react';
  * @returns T 传输的数据
  * -- deprecated
  */
-
 export default function useShow(funcRef, options) {
-  var ref = useRef({});
-  var callBackRef = useRef();
-  var onShow = options.onShow,
+  const ref = useRef({});
+  const callBackRef = useRef();
+  const onShow = options.onShow,
     onFormart = options.onFormart,
     onHide = options.onHide;
 
-  var onCallback = function onCallback(e) {
+  const onCallback = function onCallback(e) {
     callBackRef.current = e;
   };
 
@@ -23,7 +22,6 @@ export default function useShow(funcRef, options) {
     return {
       show: function show(record) {
         ref.current = _cloneDeep(record); // 深拷贝，避免值被修改，造成异常
-
         onShow(ref.current);
       },
       hide: function hide(data) {
@@ -39,3 +37,9 @@ export default function useShow(funcRef, options) {
     onCallback: onCallback,
   };
 }
+
+// // 父组件
+// const claimModalRef useRef<ShowInstance>(null),
+// claimModalRef.current?.show({})
+// // 子组件
+// const { record = {} } = useShow(modalRef, { onShow: () => setVisible(true) });
