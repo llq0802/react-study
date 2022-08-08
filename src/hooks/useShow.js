@@ -28,6 +28,7 @@ export default function useShow(funcRef, options) {
         if (onHide) onHide(data);
       },
       getData: function getData() {
+        //传给父子间的数据
         return callBackRef.current;
       },
     };
