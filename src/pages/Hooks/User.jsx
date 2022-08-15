@@ -3,17 +3,20 @@ import React, { useState, useEffect, useRef, forwardRef, useImperativeHandle, me
 const User = (props, ref) => {
   const [count, setCount] = useState(1);
   const userRef = useRef(1);
-  console.log('User ');
   useEffect(() => {
-    console.log('User-useEffect', count);
-    userRef.current = count;
-    props.onGetCount(count);
-  }, [count]);
+    // userRef.current = count;
+    // props.onGetCount(count);
+
+    return () => {
+      // console.log('user组件销毁');
+    };
+  }, [props.i]);
+
   useImperativeHandle(ref, () => ({
     setCount,
     count: userRef.current,
   }));
-  return <h1>User-{count}</h1>;
+  return <h1>User-{props.i}</h1>;
 };
 
 export default memo(forwardRef(User));

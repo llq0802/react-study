@@ -17,14 +17,38 @@ import Child from './Child';
 import User from './User';
 import Marquee from '../../components/Marquee/Marquee.jsx';
 
+function useCurrent<T>(value: T): T {
+  const refs = useRef<T | null>(null);
+  refs.current = value;
+  return refs.current as unknown as T;
+}
+
+function usePrevious<T>(value: T): T {
+  const ref = useRef<unknown | null>(null);
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current as T;
+}
+
 function Usecontext() {
   const [i, setI] = useState(99);
+  const lastI = useCurrent(i);
+  const couRwef = useRef(null);
+  const prevI = usePrevious(i);
   const userRef = useRef();
+
+  // console.log('lastI ', lastI);
+  // console.log('prevI ', prevI);
   const handleClick = () => {
-    console.log('userRefcurrent', userRef.current.count);
-    userRef.current.setCount((i) => i + 1);
+    couRwef.current = Math.random() + 1;
+    setI(i + 1);
+    // console.log('handleClick1', lastI);
+    // console.log('handleClick2', prevI);
+
+    // console.log('userRefcurrent', userRef.current.count);
+    // userRef.current.setCount((i) => i + 1);
   };
-  console.log('Usecontext');
 
   const onGetCount = useCallback((vals) => {
     console.log(' onGetCount', vals);
@@ -32,23 +56,33 @@ function Usecontext() {
   }, []);
 
   useEffect(() => {
-    console.log('Usecontext-useEffect', userRef.current.count);
+    // console.log('useEffectlastI', lastI);
+    console.log('useEffectprevI', prevI);
+    return () => {
+      console.log('return父组件销毁', prevI);
+    };
+  });
 
-    // setI((i) => i);
-  }, [userRef]);
+  // useEffect(() => {
+  //   console.log('Usecontext-useEffect', userRef.current.count);
+
+  //   // setI((i) => i);
+  // }, [userRef]);
   return (
     <>
       <div>Usecontext</div>
       <div>i-{i}</div>
+      <div>lastI-{lastI}</div>
+      <div>prevI-{prevI}</div>
 
       <Button type="primary" onClick={handleClick}>
         点击count
       </Button>
 
-      <div>Usecontext-{userRef.current?.count}</div>
+      {/* <div>Usecontext-{userRef.current?.count}</div> */}
 
       <hr />
-      <User ref={userRef} onGetCount={onGetCount}></User>
+      <User ref={userRef} onGetCount={onGetCount} i={i}></User>
     </>
   );
 }
