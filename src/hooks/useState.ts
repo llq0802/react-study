@@ -29,7 +29,7 @@ export function useRefState<T>(initialState: T): [T, Function, T | null] {
     }
   }, []);
 
-  return [state, setValue, ref.current];
+  return [state, setValue, ref?.current];
 }
 
 /**
@@ -37,7 +37,7 @@ export function useRefState<T>(initialState: T): [T, Function, T | null] {
  * @export
  * @template T
  * @param {T} state
- * @return {*}  {any[]}
+ * @return {*}  { [T, Function]}
  */
 export function useCallbackState<T>(state: T): [T, Function] {
   const callBackRef = useRef<Function | null>(null);
