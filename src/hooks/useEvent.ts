@@ -1,12 +1,12 @@
+import { useRef, useEffect } from 'react';
+import _cloneDeep from 'lodash/cloneDeep';
+import _uniqueId from 'lodash/uniqueId';
+
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError('Cannot call a class as a function');
   }
 }
-
-import { useRef, useEffect } from 'react';
-import _cloneDeep from 'lodash/cloneDeep';
-import _uniqueId from 'lodash/uniqueId';
 export var EventInstance = function EventInstance() {
   var _this = this;
 

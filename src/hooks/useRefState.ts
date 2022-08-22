@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 /**
  * 可以获取更新完的最新state
@@ -30,27 +30,4 @@ export function useRefState<T>(initialState: T): [T, Function, T | null] {
   }, []);
 
   return [state, setValue, ref?.current];
-}
-
-/**
- * useState的回调获取最新的state
- * @export
- * @template T
- * @param {T} state
- * @return {*}  { [T, Function]}
- */
-export function useCallbackState<T>(state: T): [T, Function] {
-  const callBackRef = useRef<Function | null>(null);
-  const [data, setData] = useState<T>(state);
-  useEffect(() => {
-    callBackRef?.current!(data);
-  }, [data]);
-
-  return [
-    data,
-    function (newState: T, cb: Function) {
-      callBackRef.current = cb;
-      setData(newState);
-    },
-  ];
 }
