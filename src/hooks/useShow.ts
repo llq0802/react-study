@@ -24,7 +24,7 @@ export declare type OptionsType<T> = {
  * @returns T 传输的数据
  * -- deprecated
  */
-export default function useShow(funcRef: ShowInstanceRef, options: OptionsType<any>) {
+export default function useShow(funcRef: ShowInstanceRef, options: OptionsType<Record<string, any>>) {
   const ref = useRef({});
   const callBackRef = useRef();
   let onShow = options.onShow,
