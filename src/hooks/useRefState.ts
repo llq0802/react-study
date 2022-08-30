@@ -1,7 +1,7 @@
 import { useCallback, useRef, useState } from 'react';
 
 /**
- * 可以获取更新完的最新state
+ * 可以立即获取更新完最新state的值
  * @export
  * @template T
  * @param {T} initialState

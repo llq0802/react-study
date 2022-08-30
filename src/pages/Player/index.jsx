@@ -3,12 +3,30 @@ import ReactPlayer from 'react-player';
 import './index.scss';
 // import Player from 'xgplayer';
 // import FlvJsPlayer from 'xgplayer-flv.js';
+
+import { useRefState } from '../../hooks/useRefState';
+import { useLatest } from '../../hooks/useLatest';
 export default function Index() {
   const playerRef = useRef(null);
+  const [count, setCount, countRef] = useRefState(0);
 
+  const latestCount = useLatest(count);
+
+  const handleCountClick = () => {
+    setCount(count + 1);
+    // console.log('countRef', countRef);
+  };
   const onReady = () => {
     console.log('onReady');
   };
+  function getUserInfo() {
+    const params = {
+      page: latestCount,
+      size: 10,
+    };
+    console.log('params', params);
+  }
+
   // useEffect(() => {
   //   let player = new FlvJsPlayer({
   //     id: 'mse',
@@ -20,9 +38,15 @@ export default function Index() {
   return (
     // <div id="mse"></div>
     <div className="player-wrapper">
+      <h1>count: {count}</h1>
+      <h1>countRef: {countRef}</h1>
+      <h1>latestCount: {latestCount}</h1>
+
+      <button onClick={handleCountClick}>点击</button>
+      <button onClick={getUserInfo}>请求</button>
       <ReactPlayer
-        // ref={playerRef}
-        // url='https://new.iskcd.com/20220312/fusUQfym/index.m3u8'
+        ref={playerRef}
+        url="https://new.iskcd.com/20220312/fusUQfym/index.m3u8"
         // url='https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4'
 
         // url='http://ivi.bupt.edu.cn/hls/cctv9.m3u8'

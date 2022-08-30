@@ -11,7 +11,7 @@ export function useCallbackState<T>(state: T): [T, Function] {
   const callBackRef = useRef<Function | null>(null);
   const [data, setData] = useState<T>(state);
   useEffect(() => {
-    callBackRef?.current!(data);
+    callBackRef?.current?.(data);
   }, [data]);
 
   return [
