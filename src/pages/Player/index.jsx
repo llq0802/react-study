@@ -168,6 +168,9 @@ export default function Index() {
 
       <hr />
 
+      <h1>封装的无限滚动组件</h1>
+      <hr />
+
       <ReactSeamlessScroll list={listData} step={1} singleHeight={22} hover scrollClassName="scroll-wrapper">
         {listData.map((item, index) => (
           <div key={index}>
