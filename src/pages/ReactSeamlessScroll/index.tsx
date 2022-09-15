@@ -62,7 +62,7 @@ export declare type EaseType =
 
 export declare interface SeamlessScrollType {
   /**是否开启自动滚动 */
-  modelValue: boolean;
+  isAutoScroll: boolean;
   /**原始数据列表 */
   list: Record<string, any>[];
   /**步进速度，step 需是单步大小的约数 */
@@ -94,7 +94,10 @@ export declare interface SeamlessScrollType {
   /**开启鼠标悬停时支持滚轮滚动 */
   wheel: boolean;
   /**滚动盒子的类名 */
-  scrollClassName: string;
+  wrapperClassName: string;
+  /**滚动盒子的高度 */
+  wrapperHeight: number;
+  /**列表节点 */
   children: ReactNode;
 }
 const ReactSeamlessScroll: ForwardRefRenderFunction<any, SeamlessScrollType> = (props, ref) => {
@@ -104,7 +107,7 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<any, SeamlessScrollType> = (
     hover = false,
     wheel = false,
     isRemUnit = false,
-    modelValue = true,
+    isAutoScroll = true,
     isWatch = true,
     ease = 'ease-in',
     delay = 0,
@@ -115,7 +118,8 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<any, SeamlessScrollType> = (
     step = 1,
     count = -1,
     children,
-    scrollClassName,
+    wrapperClassName,
+    wrapperHeight,
   } = props;
   const copyNum = new Array(props.copyNum ?? 1).fill(null);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -123,10 +127,8 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<any, SeamlessScrollType> = (
   const realBoxRef = useRef<HTMLDivElement | null>(null);
   const realBoxWidth = useRef<number>(0);
   const realBoxHeight = useRef<number>(0);
-
   const reqFrame = useRef<number | null>(null);
   const singleWaitTimeout = useRef<NodeJS.Timeout | null>(null);
-
   const [xPosState, setXpos] = useState<number>(0);
   const [yPosState, setYpos] = useState<number>(0);
   const xPos = useRef<number>(xPosState);
@@ -156,7 +158,7 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<any, SeamlessScrollType> = (
   // 是否水平滚动
   const isHorizontal = useMemo<boolean>(() => direction === 'left' || direction === 'right', [direction]);
   // 是否开启鼠标移入事件
-  const isHoverStop = useMemo(() => hover && modelValue && isScroll, [hover, isScroll, modelValue]);
+  const isHoverStop = useMemo(() => hover && isAutoScroll && isScroll, [hover, isScroll, isAutoScroll]);
 
   const floatStyle = useMemo<CSSProperties>(() => {
     return isHorizontal
@@ -188,7 +190,7 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<any, SeamlessScrollType> = (
       singleStep = realSingleStopHeight;
     }
     if (singleStep > 0 && singleStep % _step > 0) {
-      console.error('如果设置了单步滚动，step 需是单步大小的约数，否则无法保证单步滚动结束的位置是否准确。~~~~~');
+      console.warn('如果设置了单步滚动，step 需是单步大小的约数，否则无法保证单步滚动结束的位置是否准确。~~~~~');
     }
     return _step;
   }, [isHorizontal, step, realSingleStopHeight, realSingleStopWidth]);
@@ -216,7 +218,6 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<any, SeamlessScrollType> = (
         if (yPos.current >= 0) {
           setXpos(h * -1);
           _count.current += 1;
-          // emit('count', _count.value);
         }
         setYpos((item) => (item += _step));
       } else if (_direction === 'left') {
@@ -244,10 +245,10 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<any, SeamlessScrollType> = (
       if (singleWaitTimeout.current) {
         clearTimeout(singleWaitTimeout.current);
       }
+      console.log('Math.abs(yPos.current) ', Math.abs(yPos.current), realSingleStopHeight, _step);
 
       // 单步滚动
       if (!!realSingleStopHeight) {
-        console.log('Math.abs(yPos.current) ', Math.abs(yPos.current), realSingleStopHeight, _step);
         if (Math.abs(yPos.current) % realSingleStopHeight === 0) {
           singleWaitTimeout.current = setTimeout(() => {
             move();
@@ -271,9 +272,7 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<any, SeamlessScrollType> = (
 
   const move = () => {
     cancle();
-    // console.log('_count.current ', _count.current);
     if (isHover.current || !isScroll || _count.current === count) {
-      // emit('stop', _count.value);
       _count.current = 0;
       return;
     }
@@ -291,7 +290,7 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<any, SeamlessScrollType> = (
 
     if (isScroll) {
       realBoxHeight.current = (realBoxRef.current as HTMLDivElement).offsetHeight;
-      if (modelValue) {
+      if (isAutoScroll) {
         move();
       }
     } else {
@@ -337,23 +336,20 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<any, SeamlessScrollType> = (
   };
 
   useEffect(() => {
-    // console.log('isWatch ', isWatch);
     if (isWatch) {
       reset();
     }
   }, [isWatch]);
 
   useEffect(() => {
-    // console.log('modelValue ', modelValue);
-    if (modelValue) {
+    if (isAutoScroll) {
       startMove();
     } else {
       stopMove();
     }
-  }, [modelValue]);
+  }, [isAutoScroll]);
 
   useEffect(() => {
-    // console.log('count ', count);
     if (count !== 0) {
       startMove();
     }
@@ -403,7 +399,11 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<any, SeamlessScrollType> = (
   };
 
   return (
-    <div ref={scrollRef} className={scrollClassName} style={{ height: realBoxHeight.current / 2, overflow: 'hidden' }}>
+    <div
+      ref={scrollRef}
+      className={wrapperClassName}
+      style={{ height: wrapperHeight || realBoxHeight.current / 2, overflow: 'hidden' }}
+    >
       {wheel && hover ? (
         <div
           ref={realBoxRef}
