@@ -6,6 +6,68 @@ import './index.scss';
 
 import { useRefState } from '../../hooks/useRefState';
 import { useLatest } from '../../hooks/useLatest';
+
+import { Form, Input, Modal, Button } from 'antd';
+import ReactSeamlessScroll from '../ReactSeamlessScroll';
+
+const listData = [
+  {
+    title: '无缝滚动组件展示数据第1条',
+    date: Date.now(),
+  },
+  {
+    title: '无缝滚动组件展示数据第2条',
+    date: Date.now(),
+  },
+  {
+    title: '无缝滚动组件展示数据第3条',
+    date: Date.now(),
+  },
+  {
+    title: '无缝滚动组件展示数据第4条',
+    date: Date.now(),
+  },
+  {
+    title: '无缝滚动组件展示数据第5条',
+    date: Date.now(),
+  },
+  {
+    title: '无缝滚动组件展示数据第6条',
+    date: Date.now(),
+  },
+  {
+    title: '无缝滚动组件展示数据第7条',
+    date: Date.now(),
+  },
+  {
+    title: '无缝滚动组件展示数据第8条',
+    date: Date.now(),
+  },
+  {
+    title: '无缝滚动组件展示数据第9条',
+    date: Date.now(),
+  },
+  {
+    title: '无缝滚动组件展示数据第10条',
+    date: Date.now(),
+  },
+  {
+    title: '无缝滚动组件展示数据第11条',
+    date: Date.now(),
+  },
+  {
+    title: '无缝滚动组件展示数据第12条',
+    date: Date.now(),
+  },
+  {
+    title: '无缝滚动组件展示数据第13条',
+    date: Date.now(),
+  },
+  {
+    title: '无缝滚动组件展示数据第14条',
+    date: Date.now(),
+  },
+];
 export default function Index() {
   const playerRef = useRef(null);
   const [count, setCount, countRef] = useRefState(0);
@@ -35,6 +97,19 @@ export default function Index() {
   //   });
   // }, []);
 
+  const [form] = Form.useForm();
+  const [visible, setVisible] = React.useState(false);
+
+  React.useEffect(() => {
+    if (visible) {
+      form.setFieldsValue({ user: 'antd' });
+    }
+  }, [visible]);
+
+  function onClose() {
+    setVisible(false);
+  }
+
   return (
     // <div id="mse"></div>
     <div className="player-wrapper">
@@ -44,6 +119,22 @@ export default function Index() {
 
       <button onClick={handleCountClick}>点击</button>
       <button onClick={getUserInfo}>请求</button>
+
+      <Button
+        onClick={() => {
+          setVisible(true);
+        }}
+      >
+        点击弹窗
+      </Button>
+
+      <Modal visible={visible} onOk={onClose} onCancel={onClose}>
+        <Form form={form}>
+          <Form.Item name="user">
+            <Input />
+          </Form.Item>
+        </Form>
+      </Modal>
       <ReactPlayer
         ref={playerRef}
         url="https://new.iskcd.com/20220312/fusUQfym/index.m3u8"
@@ -74,6 +165,17 @@ export default function Index() {
           },
         }}
       />
+
+      <hr />
+
+      <ReactSeamlessScroll list={listData} step={1} singleHeight={22} hover scrollClassName="scroll-wrapper">
+        {listData.map((item, index) => (
+          <div key={index}>
+            <span style={{ marginRight: 22 }}>{item.title}</span>
+            <span>{item.date}</span>
+          </div>
+        ))}
+      </ReactSeamlessScroll>
     </div>
   );
 }
