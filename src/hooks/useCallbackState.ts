@@ -18,7 +18,14 @@ export function useCallbackState<T>(state: T): [T, Function] {
     data,
     function (newState: T, cb: Function) {
       callBackRef.current = cb;
-      setData(newState);
+      if (typeof newState === 'function') {
+        setData((prevState: T) => {
+          const ret = newState?.(prevState);
+          return ret;
+        });
+      } else {
+        setData(newState);
+      }
     },
   ];
 }

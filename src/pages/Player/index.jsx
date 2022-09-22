@@ -1,15 +1,15 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import './index.scss';
-// import Player from 'xgplayer';
-// import FlvJsPlayer from 'xgplayer-flv.js';
-
+import { Form, Input, Modal, Button, Space } from 'antd';
+import ReactSeamlessScroll from 'rc-seamless-scroll';
 import { useRefState } from '../../hooks/useRefState';
+import { useCallbackState } from '../../hooks/useCallbackState';
 import { useLatest } from '../../hooks/useLatest';
 
-import { Form, Input, Modal, Button } from 'antd';
-import ReactSeamlessScroll from '../ReactSeamlessScroll';
-
+// import Player from 'xgplayer';
+// import FlvJsPlayer from 'xgplayer-flv.js';
+// import ReactSeamlessScroll from '../ReactSeamlessScroll';
 const listData = [
   {
     title: '无缝滚动组件展示数据第1条',
@@ -71,19 +71,25 @@ const listData = [
 export default function Index() {
   const playerRef = useRef(null);
   const [count, setCount, countRef] = useRefState(0);
+  console.log(' countRef', countRef);
+  // const [count, setCount] = useCallbackState(0);
+  // const [count, setCount] = useState(0);
+  // const countRef = useLatest(count);
 
-  const latestCount = useLatest(count);
-
-  const handleCountClick = () => {
-    setCount(count + 1);
-    // console.log('countRef', countRef);
+  const handleCountClick = async () => {
+    await setCount(count + 1);
+    // getUserInfo();
+    console.log('立即countRef', countRef);
+    console.log('立即count', count);
   };
+
   const onReady = () => {
     console.log('onReady');
   };
   function getUserInfo() {
     const params = {
-      page: latestCount,
+      countRef: countRef,
+      count: count,
       size: 10,
     };
     console.log('params', params);
@@ -104,7 +110,7 @@ export default function Index() {
     if (visible) {
       form.setFieldsValue({ user: 'antd' });
     }
-  }, [visible]);
+  }, [form, visible]);
 
   function onClose() {
     setVisible(false);
@@ -114,19 +120,20 @@ export default function Index() {
     // <div id="mse"></div>
     <div className="player-wrapper">
       <h1>count: {count}</h1>
-      <h1>countRef: {countRef}</h1>
-      <h1>latestCount: {latestCount}</h1>
+      {/* <h1>countRef: {countRef}</h1> */}
+      {/* <h1>latestCount: {latestCount}</h1> */}
+      <Space>
+        <button onClick={handleCountClick}>点击</button>
+        <button onClick={getUserInfo}>请求</button>
 
-      <button onClick={handleCountClick}>点击</button>
-      <button onClick={getUserInfo}>请求</button>
-
-      <Button
-        onClick={() => {
-          setVisible(true);
-        }}
-      >
-        点击弹窗
-      </Button>
+        <Button
+          onClick={() => {
+            setVisible(true);
+          }}
+        >
+          点击弹窗
+        </Button>
+      </Space>
 
       <Modal visible={visible} onOk={onClose} onCancel={onClose}>
         <Form form={form}>
@@ -171,7 +178,14 @@ export default function Index() {
       <h1>封装的无限滚动组件</h1>
       <hr />
 
-      <ReactSeamlessScroll list={listData} step={1} singleHeight={22} hover scrollClassName="scroll-wrapper">
+      <ReactSeamlessScroll
+        list={listData}
+        step={1}
+        singleHeight={22}
+        hover
+        wrapperClassName="scroll-wrapper"
+        wrapperHeight={200}
+      >
         {listData.map((item, index) => (
           <div key={index}>
             <span style={{ marginRight: 22 }}>{item.title}</span>

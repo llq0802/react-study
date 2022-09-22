@@ -9,14 +9,16 @@ import { useCallback, useRef, useState } from 'react';
  */
 export function useRefState<T>(initialState: T): [T, Function, T | null] {
   const ref = useRef<T | null>(null);
+
   const [state, setState] = useState(() => {
     // 初始化
     const value = typeof initialState === 'function' ? initialState() : initialState;
     ref.current = value;
+    console.log(' 初始化', ref.current);
     return value;
   });
 
-  const setValue = useCallback((newState: T) => {
+  const setValue = useCallback(async (newState: T) => {
     if (typeof newState === 'function') {
       setState((prevState: T) => {
         const ret = newState?.(prevState);
@@ -25,7 +27,8 @@ export function useRefState<T>(initialState: T): [T, Function, T | null] {
       });
     } else {
       ref.current = newState;
-      setState(newState);
+      console.log('ref.current', newState);
+      await setState(ref.current);
     }
   }, []);
 

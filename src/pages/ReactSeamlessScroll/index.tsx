@@ -204,7 +204,7 @@ const ReactSeamlessScroll: ForwardRefRenderFunction<any, SeamlessScrollType> = (
   // 滚动动画
   const animation = (_direction: 'up' | 'down' | 'left' | 'right', _step: number, isWheel?: boolean) => {
     reqFrame.current = requestAnimationFrame(function () {
-      // 无缝滚动 因为复制了一份所以要除以2
+      // 无缝滚动 因为复制了一份数组所以要除以2
       const h = realBoxHeight.current / 2;
       const w = realBoxWidth.current / 2;
 

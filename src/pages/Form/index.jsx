@@ -38,72 +38,57 @@ const Demo = () => {
     // return {some: 'data'};
   };
 
-
   const [form] = Form.useForm();
   const handleOk = () => {
-
-
     request('https://www.apiopen.top/journalismApi', {
       method: 'get',
       getResponse: true,
       errorHandler,
     }).then(function (response) {
       console.log(response);
-    })
+    });
     // console.log(form);
     form.setFieldsValue({
       month: 12,
       username: 'llq',
       year: 2000,
       address: {
-        street: 777
-      }
-    })
+        street: 777,
+      },
+    });
     const res = form.getFieldsValue();
     console.log(res);
-
-
   };
   const formItemLayout = {
     labelCol: { span: 4 },
-    wrapperCol: { span: 20 }
-  }
+    wrapperCol: { span: 20 },
+  };
 
-  useEffect(() => {
-
-  }, [])
+  useEffect(() => {}, []);
   const onValuesChange = (changedValues, allValues) => {
     // console.log(changedValues, allValues);
     if (changedValues.username) {
       console.log(changedValues.username);
     }
-  }
+  };
 
   const rowStyle = {
-    marginBottom: 24
-  }
+    marginBottom: 24,
+  };
   const getValueFromEvent = (args: any[], i) => {
     console.log('getValueFromEvent', args, i);
-    if (args.some(val => val === '1')) {
+    if (args.some((val) => val === '1')) {
       return ['1', '2'];
     }
-    if (args.some(val => val === '3')) {
+    if (args.some((val) => val === '3')) {
       return ['3', '2'];
     }
 
     return args;
-  }
+  };
   return (
     <>
-
-
-      <Form
-        name="complex-form"
-        form={form}
-        onFinish={onFinish}
-        onValuesChange={onValuesChange}
-        {...formItemLayout}
-      >
+      <Form name="complex-form" form={form} onFinish={onFinish} onValuesChange={onValuesChange} {...formItemLayout}>
         <Form.Item
           name="username"
           label="Username"
@@ -111,11 +96,9 @@ const Demo = () => {
           noStyle
           rules={[{ required: true, message: 'Username is required' }]}
         >
-          <CustomInp></CustomInp>
+          <CustomInp />
         </Form.Item>
 
-
-        <MyCheckbox></MyCheckbox>
         {/* <Form.Item name="gender" label="Gender" rules={[{ required: true }]} getValueFromEvent={getValueFromEvent}>
           <Select
             placeholder="Select a option and change input text above"
@@ -130,14 +113,9 @@ const Demo = () => {
 
         <Form.Item name="gender" label="Gender" rules={[{ required: true }]} getValueFromEvent={getValueFromEvent}>
           <Checkbox.Group options={options} />
-
         </Form.Item>
 
-
-
-
-        <Form.Item label="Address"
-        >
+        <Form.Item label="Address">
           <Row align="middle">
             <Col span={12}>
               <Form.Item
@@ -164,10 +142,7 @@ const Demo = () => {
           </Row>
         </Form.Item>
 
-        <FromItem></FromItem>
-
-
-
+        <CustomFromItem />
 
         <Form.Item label=" " colon={false}>
           <Space>
@@ -187,17 +162,18 @@ const Demo = () => {
       <Row gutter={[16, 16]}>
         <Col span={12}>7777</Col>
         <Col span={12}>9999</Col>
-      </Row><Row gutter={[16, 16]}>
+      </Row>
+      <Row gutter={[16, 16]}>
         <Col span={24}>
           <div className="qrcode">
-            <QRCodeCanvas value='https://www.baidu.com/' size={100} // 二维码的大小
+            <QRCodeCanvas
+              value="https://www.baidu.com/"
+              size={100} // 二维码的大小
             />
           </div>
-
-
         </Col>
       </Row>
-
+      <MyCheckbox />
     </>
   );
 };
@@ -207,10 +183,10 @@ function CustomInp(props) {
   console.log('CustomInp', props);
   const { onChange, value } = props;
   const handleOk = (e) => {
-    onChange && onChange(e.target.value)
-  }
+    onChange && onChange(e.target.value);
+  };
   return (
-    <Row align='middle' gutter={[16, 64]}>
+    <Row align="middle" gutter={[16, 64]}>
       <Col span={12}>
         <Input placeholder="Please input" onChange={handleOk} value={value} defaultValue={value} />
       </Col>
@@ -220,64 +196,40 @@ function CustomInp(props) {
         </Tooltip>
       </Col>
     </Row>
-  )
+  );
 }
 
-
-
-
-function FromItem(props) {
-  console.log('FromItem', props);
+function CustomFromItem(props) {
+  console.log('CustomFromItem', props);
   return (
     <Form.Item required label="BirthDate" help={<span>提示</span>} style={{ marginBottom: 0 }}>
-      <Form.Item
-        name="year"
-        rules={[{ required: true }]}
-        style={{ display: 'inline-block', width: 'calc(48% )' }}
-      >
+      <Form.Item name="year" rules={[{ required: true }]} style={{ display: 'inline-block', width: 'calc(48% )' }}>
         <Input placeholder="Input birth year" />
       </Form.Item>
       <div style={{ display: 'inline-block', width: 'calc(4%)', textAlign: 'center' }}>-</div>
-      <Form.Item
-        name="month"
-        rules={[{ required: true }]}
-        style={{ display: 'inline-block', width: 'calc(48% )' }}
-      >
+      <Form.Item name="month" rules={[{ required: true }]} style={{ display: 'inline-block', width: 'calc(48% )' }}>
         <Input placeholder="Input birth month" />
       </Form.Item>
     </Form.Item>
-
-  )
-
+  );
 }
-
-
-
-
-
-
 
 /**
  * 获取上一次的值
- * @param {*} value 
- * @returns 
+ * @param {*} value
+ * @returns
  */
 function usePreValue(value) {
-  const valueRef = useRef(null)
+  const valueRef = useRef(null);
   useEffect(() => {
-    valueRef.current = value
-  }, [value])
-  return valueRef.current
+    valueRef.current = value;
+  }, [value]);
+  return valueRef.current;
 }
-
-
-
 
 /**
  * checkout多选，最多选中两个，其余选项不可点击；取消选中后的项，所有选项可点击
  */
-
-
 export class MyCheckbox extends Component {
   constructor(props) {
     super(props);
@@ -290,15 +242,15 @@ export class MyCheckbox extends Component {
         { label: '柠檬', value: '柠檬', disabled: false },
         { label: '雪碧', value: '雪碧', disabled: false },
       ],
-    }
+    };
   }
 
   onChange = (checkedList) => {
     const { options } = this.state;
-    let valueList = options.map(item => item.value);
+    let valueList = options.map((item) => item.value);
     let disList = [];
 
-    valueList.forEach(item => {
+    valueList.forEach((item) => {
       if (!checkedList.includes(item)) {
         disList.push(item);
       }
@@ -318,16 +270,14 @@ export class MyCheckbox extends Component {
         options[i].disabled = false;
       }
     }
-  }
+  };
 
   render() {
     const { options } = this.state;
-    return (<div >
-      <Checkbox.Group
-        options={options}
-        onChange={this.onChange}
-      />
-    </div>)
+    return (
+      <div>
+        <Checkbox.Group options={options} onChange={this.onChange} />
+      </div>
+    );
   }
 }
-

@@ -742,3 +742,15 @@ _/
 "umi": "3.5.16",
 "umi-request": "^1.2.9",
 "warning": "^4.0.3"
+
+xxx-enter: 进入（入场）前的 CSS 样式；
+
+xxx-enter-active:进入动画直到完成时之前的 CSS 样式;
+
+xxx-enter-done:进入完成时保留的 CSS 样式;
+
+xxx-exit:退出（出场）前的 CSS 样式;
+
+xxx-exit-active:退出动画直到完成时之前的的 CSS 样式。
+
+xxx-exit-done:退出完成时保留的 CSS 样式
