@@ -75,6 +75,7 @@ export default function Index() {
   // const [count, setCount] = useCallbackState(0);
   // const [count, setCount] = useState(0);
   // const countRef = useLatest(count);
+  const [visible, setVisible] = React.useState(false);
 
   const handleCountClick = async () => {
     await setCount(count + 1);
@@ -103,19 +104,6 @@ export default function Index() {
   //   });
   // }, []);
 
-  const [form] = Form.useForm();
-  const [visible, setVisible] = React.useState(false);
-
-  React.useEffect(() => {
-    if (visible) {
-      form.setFieldsValue({ user: 'antd' });
-    }
-  }, [form, visible]);
-
-  function onClose() {
-    setVisible(false);
-  }
-
   return (
     // <div id="mse"></div>
     <div className="player-wrapper">
@@ -135,13 +123,6 @@ export default function Index() {
         </Button>
       </Space>
 
-      <Modal visible={visible} onOk={onClose} onCancel={onClose}>
-        <Form form={form}>
-          <Form.Item name="user">
-            <Input />
-          </Form.Item>
-        </Form>
-      </Modal>
       <ReactPlayer
         ref={playerRef}
         url="https://new.iskcd.com/20220312/fusUQfym/index.m3u8"
@@ -172,7 +153,9 @@ export default function Index() {
           },
         }}
       />
+      <hr />
 
+      <ChildModel visible={visible} setVisible={setVisible}></ChildModel>
       <hr />
 
       <h1>封装的无限滚动组件</h1>
@@ -203,3 +186,28 @@ export default function Index() {
 // https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8
 
 //http://dash.edgesuite.net/envivio/EnvivioDash3/manifest.mpd
+function ChildModel({ visible, setVisible }) {
+  const [form] = Form.useForm();
+  const [count, setCount] = useState(0);
+  React.useEffect(() => {
+    if (visible) {
+      form.setFieldsValue({ user: 'antd' });
+    }
+  }, [form, visible]);
+
+  function onClose() {
+    setVisible(false);
+  }
+
+  return (
+    <Modal visible={visible} onOk={onClose} onCancel={onClose} destroyOnClose>
+      <div onClick={() => setCount(count + 1)}>{count}</div>
+
+      <Form form={form}>
+        <Form.Item name="user">
+          <Input />
+        </Form.Item>
+      </Form>
+    </Modal>
+  );
+}
