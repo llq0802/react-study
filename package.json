@@ -36,6 +36,7 @@
     "redux-thunk": "^2.3.0",
     "sass-loader": "^12.1.0",
     "screenfull": "^6.0.0",
+    "text-to-image-video": "^1.0.1",
     "throttle-debounce": "^5.0.0",
     "typescript": "^4.7.3",
     "umi-request": "^1.4.0",

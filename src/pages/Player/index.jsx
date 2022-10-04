@@ -6,6 +6,7 @@ import ReactSeamlessScroll from 'rc-seamless-scroll';
 import { useRefState } from '../../hooks/useRefState';
 import { useCallbackState } from '../../hooks/useCallbackState';
 import { useLatest } from '../../hooks/useLatest';
+import createTextImage, { TextImageOption } from 'text-to-image-video';
 
 // import Player from 'xgplayer';
 // import FlvJsPlayer from 'xgplayer-flv.js';
@@ -96,6 +97,20 @@ export default function Index() {
     console.log('params', params);
   }
 
+  useEffect(() => {
+    window.addEventListener('resize', () => {
+      console.log('resize');
+    });
+    createTextImage({
+      canvas: document.getElementById('demo'),
+      source: {
+        text: 'Text Image', // 绘制的文本是：Text Image
+        fontFamily: 'Roboto Mono',
+        fontSize: 100,
+      },
+    });
+  }, []);
+
   // useEffect(() => {
   //   let player = new FlvJsPlayer({
   //     id: 'mse',
@@ -105,8 +120,9 @@ export default function Index() {
   // }, []);
 
   return (
-    // <div id="mse"></div>
     <div className="player-wrapper">
+      <canvas id="demo" width={500} height={500} />
+
       <h1>count: {count}</h1>
       {/* <h1>countRef: {countRef}</h1> */}
       {/* <h1>latestCount: {latestCount}</h1> */}
