@@ -7,6 +7,8 @@ import { useRefState } from '../../hooks/useRefState';
 import { useCallbackState } from '../../hooks/useCallbackState';
 import { useLatest } from '../../hooks/useLatest';
 import createTextImage, { TextImageOption } from 'text-to-image-video';
+import worker_script from './worker';
+const myWorker = new Worker(worker_script);
 
 // import Player from 'xgplayer';
 // import FlvJsPlayer from 'xgplayer-flv.js';
@@ -98,8 +100,14 @@ export default function Index() {
   }
 
   useEffect(() => {
+    myWorker.postMessage('我是主线程-worker');
+
+    myWorker.addEventListener('message', function (event) {
+      console.log('接收worker线程的消息 ', event.data);
+    });
+
     window.addEventListener('resize', () => {
-      console.log('resize');
+      // console.log('resize');
     });
     createTextImage({
       canvas: document.getElementById('demo'),
