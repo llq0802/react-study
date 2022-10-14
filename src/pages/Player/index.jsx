@@ -132,6 +132,8 @@ export default function Index() {
     <div className="player-wrapper">
       <canvas id="demo" width={500} height={500} />
 
+      <hr />
+
       <h1>count: {count}</h1>
       {/* <h1>countRef: {countRef}</h1> */}
       {/* <h1>latestCount: {latestCount}</h1> */}
@@ -147,6 +149,8 @@ export default function Index() {
           点击弹窗
         </Button>
       </Space>
+
+      <hr />
 
       <ReactPlayer
         ref={playerRef}
@@ -181,6 +185,7 @@ export default function Index() {
       <hr />
 
       <ChildModel visible={visible} setVisible={setVisible}></ChildModel>
+
       <hr />
 
       <h1>封装的无限滚动组件</h1>
@@ -188,7 +193,6 @@ export default function Index() {
 
       <ReactSeamlessScroll
         list={listData}
-        step={1}
         singleHeight={22}
         hover
         wrapperClassName="scroll-wrapper"
@@ -225,8 +229,10 @@ function ChildModel({ visible, setVisible }) {
   }
 
   return (
-    <Modal visible={visible} onOk={onClose} onCancel={onClose} destroyOnClose>
+    <Modal visible={visible} onOk={onClose} onCancel={onClose} destroyOnClose getContainer={false}>
       <div onClick={() => setCount(count + 1)}>{count}</div>
+
+      <h1>wa</h1>
 
       <Form form={form}>
         <Form.Item name="user">
