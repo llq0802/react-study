@@ -12,9 +12,6 @@ const workercode = function () {
 // 把脚本代码转为string
 let code = workercode.toString();
 code = code.substring(code.indexOf('{') + 1, code.lastIndexOf('}'));
-console.log('code', code);
-
 const blob = new Blob([code], { type: 'application/javascript' });
 const worker_script = URL.createObjectURL(blob);
-
 module.exports = worker_script;
