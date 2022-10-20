@@ -184,7 +184,7 @@ export default function Index() {
       />
       <hr />
 
-      <ChildModel visible={visible} setVisible={setVisible}></ChildModel>
+      <ChildModel visible={visible} setVisible={setVisible} />
 
       <hr />
 
@@ -218,6 +218,8 @@ export default function Index() {
 function ChildModel({ visible, setVisible }) {
   const [form] = Form.useForm();
   const [count, setCount] = useState(0);
+  const [num, setNum] = useState('llq');
+
   React.useEffect(() => {
     if (visible) {
       form.setFieldsValue({ user: 'antd' });
@@ -229,10 +231,10 @@ function ChildModel({ visible, setVisible }) {
   }
 
   return (
-    <Modal visible={visible} onOk={onClose} onCancel={onClose} destroyOnClose getContainer={false}>
+    <Modal visible={visible} onOk={onClose} onCancel={onClose} destroyOnClose getContainer={true}>
       <div onClick={() => setCount(count + 1)}>{count}</div>
 
-      <h1>wa</h1>
+      <h1 onClick={() => setNum('李岚清')}>{num}</h1>
 
       <Form form={form}>
         <Form.Item name="user">
