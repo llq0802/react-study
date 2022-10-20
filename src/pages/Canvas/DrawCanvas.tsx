@@ -223,6 +223,10 @@ const Index: FC<PropsType> = ({ imgUrl }) => {
   const canvasInit = async (isReset: boolean = false): Promise<void> => {
     const canvas = ref.current;
     const img: HTMLImageElement = await createImage();
+    console.log('img-width ', img.width);
+    console.log('img-height', img.height);
+    canvas.width = img.width;
+    canvas.height = img.height;
     ctx.drawImage(img, 0, 0, canvas!.width, canvas!.height);
     // 初始化时
     if (!isReset) {
@@ -266,6 +270,8 @@ const Index: FC<PropsType> = ({ imgUrl }) => {
       };
     });
   };
+
+  // ======================
   // 鼠标按下
   const handleCanvasMouseDown = (ev: MouseEvent<HTMLCanvasElement>): void => {
     if (mode === 'rect' && isDraw) {
@@ -395,6 +401,7 @@ const Index: FC<PropsType> = ({ imgUrl }) => {
       pointStack = [];
       const canvas = ref.current;
       lastCanvasInfo = ctx.getImageData(0, 0, canvas!.width, canvas!.height);
+      console.log('pointList ', pointList);
       return;
     }
     // 第2,3个点

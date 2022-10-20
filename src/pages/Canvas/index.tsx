@@ -110,7 +110,7 @@ const Index = () => {
       <Checkbox.Group options={list} onChange={onChange} defaultValue={checkedValues} />
 
       <Drawer title="DrawCanvas" destroyOnClose onClose={onClose} visible={visible} width={1300}>
-        <DrawCanvas imgUrl="/img.png" />
+        <DrawCanvas imgUrl="/shui.jpg" />
       </Drawer>
     </>
   );
