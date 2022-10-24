@@ -19,7 +19,6 @@ export const useSetState = <S extends Record<string, any>>(initialState: S | (()
   const setMergeState = useCallback((patch: Record<string, any> | null | Function) => {
     setState((prevState) => {
       const newState = isFunction(patch) ? (patch as Function)(prevState) : patch;
-
       return newState ? { ...prevState, ...newState } : prevState;
     });
   }, []);

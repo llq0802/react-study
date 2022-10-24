@@ -6,26 +6,36 @@ class Roll extends React.Component {
   rollRef = React.createRef();
   state = {
     list: [
-      { title: '这是消息1' },
-      { title: '这是消息2' },
-      { title: '这是消息3' },
-      { title: '这是消息4' },
-      { title: '这是消息5' },
-      { title: '这是消息6' },
-      { title: '这是消息7' },
-      { title: '这是消息8' },
-      { title: '这是消息9' },
-      { title: '这是消息10' },
-      { title: '这是消息11' },
-      { title: '这是消息12' },
-      { title: '这是消息13' },
+      // { title: '这是消息1' },
+      // { title: '这是消息2' },
+      // { title: '这是消息3' },
+      // { title: '这是消息4' },
+      // { title: '这是消息5' },
+      // { title: '这是消息6' },
+      // { title: '这是消息7' },
+      // { title: '这是消息8' },
+      // { title: '这是消息9' },
+      // { title: '这是消息10' },
+      // { title: '这是消息11' },
+      // { title: '这是消息12' },
+      // { title: '这是消息13' },
     ],
     count: 0,
   };
 
+  mockData = () => {
+    setTimeout(() => {
+      this.setState((state, props) => {
+        return {
+          list: [...state.list, { title: '这是消息14' }, { title: '这是消息15' }, { title: '这是消息16' }],
+        };
+      });
+    }, 5000);
+  };
   // 页面挂载时开启定时器
   componentDidMount = () => {
     this.begin();
+    this.mockData();
   };
   componentWillUnmount() {
     this.stop();

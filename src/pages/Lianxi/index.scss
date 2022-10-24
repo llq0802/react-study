@@ -1,0 +1,13 @@
+
+.classNamecard{
+    perspective: 1000px;
+  .container{
+    width: 200px;
+    height: 200px;
+  
+    background-color: red;
+    transform: rotateY(45deg);
+    transform-origin: 0 100%;
+  
+  }
+}

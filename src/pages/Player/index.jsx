@@ -73,7 +73,8 @@ const listData = [
 export default function Index() {
   const playerRef = useRef(null);
   const [count, setCount, countRef] = useRefState(0);
-  console.log(' countRef', countRef);
+  const [list, setList] = useState(listData);
+  // console.log(' countRef', countRef);
   // const [count, setCount] = useCallbackState(0);
   // const [count, setCount] = useState(0);
   // const countRef = useLatest(count);
@@ -128,8 +129,41 @@ export default function Index() {
   //   });
   // }, []);
 
+  useEffect(() => {
+    // listData
+    setInterval(() => {
+      setList((item) => {
+        return [
+          ...item,
+          {
+            title: '我是新增的数据',
+            date: '202023',
+          },
+        ];
+      });
+    }, 2000);
+  }, []);
+
   return (
     <div className="player-wrapper">
+      <h1>封装的无限滚动组件</h1>
+      <hr />
+
+      <ReactSeamlessScroll
+        list={list}
+        // singleHeight={22}
+        // hover
+        wrapperClassName="scroll-wrapper"
+        wrapperHeight={200}
+      >
+        {list.map((item, index) => (
+          <div key={index}>
+            <span style={{ marginRight: 22 }}>{item.title}</span>
+            <span>{item.date}</span>
+          </div>
+        ))}
+      </ReactSeamlessScroll>
+
       <canvas id="demo" width={500} height={500} />
 
       <hr />
@@ -187,28 +221,9 @@ export default function Index() {
       <ChildModel visible={visible} setVisible={setVisible} />
 
       <hr />
-
-      <h1>封装的无限滚动组件</h1>
-      <hr />
-
-      <ReactSeamlessScroll
-        list={listData}
-        singleHeight={22}
-        hover
-        wrapperClassName="scroll-wrapper"
-        wrapperHeight={200}
-      >
-        {listData.map((item, index) => (
-          <div key={index}>
-            <span style={{ marginRight: 22 }}>{item.title}</span>
-            <span>{item.date}</span>
-          </div>
-        ))}
-      </ReactSeamlessScroll>
     </div>
   );
 }
-
 // https://new.iskcd.com/20220312/fusUQfym/index.m3u8
 // url='https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4'
 
@@ -221,6 +236,7 @@ function ChildModel({ visible, setVisible }) {
   const [num, setNum] = useState('llq');
 
   React.useEffect(() => {
+    console.log('ChildModel', visible);
     if (visible) {
       form.setFieldsValue({ user: 'antd' });
     }
