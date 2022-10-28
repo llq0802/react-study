@@ -3,21 +3,24 @@ import { Form, Input, InputNumber, Typography, Button } from 'antd';
 
 const Demo = () => {
   const [form] = Form.useForm<{ name: string; age: number }>();
+
   const nameValue = Form.useWatch('name', form);
+
   console.log('组件更新', nameValue);
+
   useEffect(() => {
     console.log('useEffect', nameValue);
   }, []);
 
   const getForm = () => {
-    const fields = form.getFieldsValue();
-
-    console.log('fields', fields);
+    // const fields = form.getFieldsValue();
+    // console.log('fields', fields);
   };
 
   const setForm = () => {
     form.setFieldsValue({
       name: '李岚清',
+      age: 25,
     });
     const fields = form.getFieldsValue();
 
@@ -38,7 +41,6 @@ const Demo = () => {
         form={form}
         layout="vertical"
         autoComplete="off"
-        preserve={false}
         onFieldsChange={onFieldsChange}
         onValuesChange={onValuesChange}
       >
@@ -61,7 +63,7 @@ const Demo = () => {
         </Form.Item>
 
         <Form.Item
-          name="confirm"
+          name="text"
           label="Confirm Password"
           dependencies={['password']}
           hasFeedback
@@ -82,6 +84,10 @@ const Demo = () => {
         >
           <Dependencies></Dependencies>
         </Form.Item>
+
+        {/* <Form.Item>
+          <div></div>
+        </Form.Item> */}
       </Form>
 
       <Typography>
@@ -103,5 +109,5 @@ export default Demo;
 
 const Dependencies = (props) => {
   console.log('Dependencies-props ', props);
-  return <Input.Password />;
+  return <Input />;
 };

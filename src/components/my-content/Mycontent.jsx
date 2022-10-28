@@ -17,6 +17,7 @@ import Canvas from '../../pages/Canvas/index.tsx';
 import Hook from '../../pages/Hooks/Usecontext.tsx';
 import Lianxi from '../../pages/Lianxi';
 import Lianxi1 from '../../pages/Lianxi/lianxi1.tsx';
+import Lianxi2 from '../../pages/Lianxi/lianxi2.tsx';
 
 export default function Mycontent() {
   return (
@@ -30,6 +31,7 @@ export default function Mycontent() {
         <Route path="/canvas" component={Canvas}></Route>
         <Route path="/lianxi" component={Lianxi}></Route>
         <Route path="/lianxi1" component={Lianxi1}></Route>
+        <Route path="/lianxi2" component={Lianxi2}></Route>
         <Route path="/upload" component={Upload}></Route>
         <Route path="/file" component={File}></Route>
         <Route path="/echarts" component={Echarts}></Route>

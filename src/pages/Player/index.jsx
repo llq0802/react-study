@@ -74,6 +74,7 @@ export default function Index() {
   const playerRef = useRef(null);
   const [count, setCount, countRef] = useRefState(0);
   const [list, setList] = useState(listData);
+  const [open, setOpen] = useState(false);
   // console.log(' countRef', countRef);
   // const [count, setCount] = useCallbackState(0);
   // const [count, setCount] = useState(0);
@@ -177,6 +178,7 @@ export default function Index() {
 
         <Button
           onClick={() => {
+            setOpen(true);
             setVisible(true);
           }}
         >
@@ -218,7 +220,15 @@ export default function Index() {
       />
       <hr />
 
-      <ChildModel visible={visible} setVisible={setVisible} />
+      {/* <div
+        ChildModel
+        style={{
+          display: open ? 'block' : 'none',
+        }}
+      >
+        <ChildModel visible={visible} setVisible={setVisible} />
+      </div> */}
+      {open && <ChildModel visible={visible} setVisible={setVisible} />}
 
       <hr />
     </div>
@@ -247,7 +257,7 @@ function ChildModel({ visible, setVisible }) {
   }
 
   return (
-    <Modal visible={visible} onOk={onClose} onCancel={onClose} destroyOnClose getContainer={true}>
+    <Modal visible={visible} onOk={onClose} onCancel={onClose} getContainer={true}>
       <div onClick={() => setCount(count + 1)}>{count}</div>
 
       <h1 onClick={() => setNum('李岚清')}>{num}</h1>

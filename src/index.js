@@ -35,7 +35,7 @@ ReactDOM.render(
 );
 
 // console.log(process.env);
-console.log(process.env.REACT_APP_BASEURL);
+// console.log(process.env.REACT_APP_BASEURL);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

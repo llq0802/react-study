@@ -40,6 +40,10 @@ class SiderDemo extends Component {
           key: 'submenu-item-4',
           label: <Link to="/lianxi1">练习1</Link>,
         },
+        {
+          key: 'submenu-item-5',
+          label: <Link to="/lianxi2">练习2</Link>,
+        },
       ],
     },
     {
