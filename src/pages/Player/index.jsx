@@ -228,8 +228,8 @@ export default function Index() {
       >
         <ChildModel visible={visible} setVisible={setVisible} />
       </div> */}
-      {open && <ChildModel visible={visible} setVisible={setVisible} />}
-
+      {/* {open && <ChildModel visible={visible} setVisible={setVisible} />} */}
+      <ChildModel visible={visible} setVisible={setVisible} />
       <hr />
     </div>
   );
@@ -252,12 +252,18 @@ function ChildModel({ visible, setVisible }) {
     }
   }, [form, visible]);
 
+  useEffect(() => {
+    return () => {
+      console.log('ChildModel销毁');
+    };
+  }, []);
+
   function onClose() {
     setVisible(false);
   }
 
   return (
-    <Modal visible={visible} onOk={onClose} onCancel={onClose} getContainer={true}>
+    <Modal visible={visible} onOk={onClose} onCancel={onClose} getContainer={true} destroyOnClose>
       <div onClick={() => setCount(count + 1)}>{count}</div>
 
       <h1 onClick={() => setNum('李岚清')}>{num}</h1>
